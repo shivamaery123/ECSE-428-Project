@@ -1,0 +1,19 @@
+{
+  "name": "ecse-428-project",
+  "version": "1.0.0",
+  "description": "ECSE428 Project Group 7",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivamaery123/ECSE-428-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivamaery123/ECSE-428-Project/issues"
+  },
+  "homepage": "https://github.com/shivamaery123/ECSE-428-Project#readme"
+}
