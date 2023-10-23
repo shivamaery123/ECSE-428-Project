@@ -1,13 +1,37 @@
 {
-  "name": "backend",
+  "name": "ecse-428-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "ECSE428 Project Group 7",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "npm start --prefix frontend",
+    "client": "npm start --prefix backend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "nodemon index.js"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivamaery123/ECSE-428-Project.git"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shivamaery123/ECSE-428-Project/issues"
+  },
+  "homepage": "https://github.com/shivamaery123/ECSE-428-Project#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "hpp": "^0.2.3",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.6.2",
+    "sequelize": "^6.33.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.1"
+  }
 }
