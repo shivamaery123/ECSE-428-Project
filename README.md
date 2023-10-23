@@ -22,7 +22,7 @@ npm run start
 ## Setup Frontend
 
 ### Install Node.js 
-https://nodejs.org
+https://nodejs.org\
 
 To check version:
 ```bash
