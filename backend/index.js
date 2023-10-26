@@ -1,15 +1,27 @@
-const express = require("express");
+import db from "./config/database.js";
+
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import morgan from "morgan";
+import hpp from "hpp";
+import compression from "compression";
+
 const app = express();
-const cors = require("cors");
-const helmet = require("helmet");
-const morgan = require("morgan");
-const hpp = require("hpp");
-const compression = require("compression");
+
 const port = 8000;
 
 const corsOptions = {
   origin: "http://localhost:8081",
 };
+
+try {
+    await db.authenticate();
+    console.log('Database connected...');
+} catch (error) {
+    console.error('Connection error:', error);
+}
+
 
 // Middleware Setup
 
