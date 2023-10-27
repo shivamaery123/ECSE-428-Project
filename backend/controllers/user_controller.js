@@ -37,4 +37,35 @@ const get_all_users = async (req, res) => {
   }
 };
 
-module.exports = { createUser, get_all_users };
+const get_user = async(req,res) => {
+  try {
+    const { id } = req.body;
+    const user = await User.findOne({
+      where: {
+        id: id
+      }
+    });
+    if(user == null) {
+      res.status(404).json({
+        status: "Failed",
+        message: `User does not exist.`
+      });
+    } else {
+      res.status(201).json({
+        status: "Success",
+        message: "User retrieved successfully.",
+        data: {
+          user: user
+        },
+      });
+    }
+
+  } catch (err) {
+    res.status(400).json({
+      status: "Failed",
+      message: `User was not successfuly fetched, error: ${err}`,
+    });
+  }
+}
+
+module.exports = { createUser, get_all_users, get_user };
