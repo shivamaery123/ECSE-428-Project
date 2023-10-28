@@ -1,4 +1,5 @@
 import './SignUp.css';
+import { Link } from "react-router-dom";
 
 function SignUp() {
   return (
@@ -12,10 +13,10 @@ function SignUp() {
                 <input type="text" id="username" name="username"></input>
                 <label for="password">Password</label>
                 <input type="text" id="password" name="password"></input>
-
-            </form>
                 <input type="button" value="Sign up"></input>
-                <p>You already have an account? <a href="random">Log in</a></p>
+                <p>You already have an account? <Link to="/">Log in</Link></p>
+            </form>
+
         </div>
 
     </div>
