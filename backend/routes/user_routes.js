@@ -7,5 +7,7 @@ user_router.post("/create", createUser);
 user_router.get("/all", get_all_users);
 
 user_router.get("/user", get_user)
+// /user?id={id}
+// /user?email={email}
 
 module.exports = user_router;
