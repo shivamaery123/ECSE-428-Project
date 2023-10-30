@@ -80,4 +80,38 @@ const get_user = async(req,res) => {
   }
 }
 
-module.exports = { createUser, get_all_users, get_user };
+const login = async(req, res) => {
+  try {
+    const  { username, password} = req.body;
+    var user = await User.findOne({
+      where: {
+        username: username,
+        password: password
+      }
+    });
+
+    if(user == null) {
+      res.status(404).json({
+        status: "Failed",
+        message: `Could not find user with username/password`
+      });
+    }
+    else {
+      res.status(201).json({
+        status: "Success",
+        message: "User logged in successfully.",
+        data: {
+          username: user.username
+        },
+      });
+    }
+  }
+  catch (err) {
+    res.status(400).json({
+      status: "Failed",
+      message: `User was not successfuly logged in, ${err}`,
+    });
+  }
+}
+
+module.exports = { createUser, get_all_users, get_user, login};
