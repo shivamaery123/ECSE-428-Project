@@ -17,7 +17,7 @@ const Login = () => {
     const data = await response.json();
     if (response.ok) {
       console.log("User logged in!", data);
-     .
+     
     } else {
       setError(data.message);
     }
