@@ -16,7 +16,7 @@ Given('I am logged in as a regular user with username "username123" and email "u
 
 // Retrieve user details using a valid email
 
-When('I make a GET request to {string} with my valid email {string}', async function (url, email) {
+When('I make a GET request to {string} with email {string}', async function (url, email) {
   try {
     const response = await axios.get(`${url}?email=${email}`);
     this.response = response;
@@ -25,9 +25,10 @@ When('I make a GET request to {string} with my valid email {string}', async func
   }
 });
 
+
 // Retrieve user details using a valid username
 
-When('I make a GET request to {string} with my valid username {string}', async function (url, username) {
+When('I make a GET request to {string} with username {string}', async function (url, username) {
   try {
     const response = await axios.get(`${url}?username=${username}`);
     this.response = response;
@@ -35,6 +36,8 @@ When('I make a GET request to {string} with my valid username {string}', async f
     this.response = err.response;
   }
 });
+
+
 
 // Attempt to retrieve user details using another user's email or username
 
@@ -58,20 +61,13 @@ When('I make a GET request to {string} with another user\'s username {string}', 
 
 // Validate Response
 
-Then('the response status code should be {int}', function (expectedStatus) {
-  assert.strictEqual(this.response.status, expectedStatus);
-});
-
-Then('the response should contain a status message {string}', function (expectedStatusMessage) {
-  assert.strictEqual(this.response.data.status, expectedStatusMessage);
-});
 
 Then('the response should contain my user details for the email {string}', function (email) {
-  assert.strictEqual(this.response.data.email, email);
+  assert.strictEqual(this.response.data.data.user.email, email);
 });
 
 Then('the response should contain my user details for the username {string}', function (username) {
-  assert.strictEqual(this.response.data.username, username);
+  assert.strictEqual(this.response.data.data.user.username, username);
 });
 
 // Additional steps for other scenarios can be added similarly.

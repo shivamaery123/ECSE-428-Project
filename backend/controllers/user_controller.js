@@ -96,6 +96,12 @@ const get_user = async (req, res) => {
           user_id: query.id,
         },
       });
+    } else if("username" in query) {
+      user = await User.findOne({
+        where: {
+          username: query.username
+        }
+      })
     } else throw new Error("Invalid query");
 
     if (user == null) {
@@ -104,7 +110,7 @@ const get_user = async (req, res) => {
         message: `User does not exist.`,
       });
     } else {
-      res.status(201).json({
+      res.status(200).json({
         status: "Success",
         message: "User retrieved successfully.",
         data: {
