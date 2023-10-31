@@ -1,4 +1,10 @@
+/**
+ * This file is used to setup the controller for the User model allowing CRUD interactions with the database
+ */
+
 const User = require("../models/User");
+
+// Register a user for their account
 
 const registerUser = async (req, res) => {
   try {
@@ -19,6 +25,41 @@ const registerUser = async (req, res) => {
   }
 };
 
+// Delete a user via their id email or username
+
+const deleteUser = async (req, res) => {
+  try {
+    const { username, email, id } = req.query;
+    let user;
+    if (id) {
+      user = await User.findByPk(id);
+    } else if (email) {
+      user = await User.findOne({ where: { email: email } });
+    } else if (username) {
+      user = await User.findOne({ where: { username: username } });
+    }
+    if (!user) {
+      return res
+        .status(404)
+        .json({ status: "Fail", message: "User not found" });
+    }
+
+    await user.destroy();
+
+    res.status(200).json({
+      status: "Success",
+      message: "User deleted successfully",
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failed",
+      message: `User was not deleted, error: ${err}`,
+    });
+  }
+};
+
+// Get all users stored
+
 const get_all_users = async (req, res) => {
   try {
     const users = await User.findAll();
@@ -37,6 +78,7 @@ const get_all_users = async (req, res) => {
   }
 };
 
+// Get a user via id or email
 const get_user = async (req, res) => {
   try {
     const query = req.query;
@@ -78,4 +120,4 @@ const get_user = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, get_all_users, get_user };
+module.exports = { registerUser, get_all_users, get_user, deleteUser };

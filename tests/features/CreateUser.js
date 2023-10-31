@@ -1,6 +1,21 @@
-const { Given, When, Then } = require("@cucumber/cucumber");
+/**
+ * This file is used to setup the step definitions of CreateUser.feature
+ */
+
+const { Given, When, Then, Before } = require("@cucumber/cucumber");
 const axios = require("axios");
 const assert = require("assert");
+const User = require("../../backend/models/User");
+
+// Before every scenario, empty all records of user table and reset auto increment id
+
+Before(async function () {
+  await User.destroy({
+    truncate: true,
+    cascade: true,
+    restartIdentity: true,
+  });
+});
 
 // Register a user (Normal Flow)
 
@@ -29,21 +44,21 @@ When(
 Then(
   "the response status code should be {int}",
   function (expected_status_code) {
-    assert.equal(this.response.status, expected_status_code);
+    assert.strictEqual(this.response.status, expected_status_code);
   }
 );
 
 Then(
   "the response should contain a status message {string}",
   function (status_indicator) {
-    assert.equal(this.response.data.status, status_indicator);
+    assert.strictEqual(this.response.data.status, status_indicator);
   }
 );
 
 Then(
   "the response should contain a message {string}",
   function (status_message) {
-    assert.equal(this.response.data.message, status_message);
+    assert.strictEqual(this.response.data.message, status_message);
   }
 );
 
@@ -52,9 +67,9 @@ Then(
   function () {
     const user = this.response.data.data.user;
 
-    assert.equal(this.userData.email, user.email);
-    assert.equal(this.userData.username, user.username);
-    assert.equal(this.userData.password, user.password);
+    assert.strictEqual(this.userData.email, user.email);
+    assert.strictEqual(this.userData.username, user.username);
+    assert.strictEqual(this.userData.password, user.password);
   }
 );
 
