@@ -12,6 +12,7 @@ const {
   get_all_users,
   get_user,
   deleteUser,
+  modify_user,
 } = require("../controllers/user_controller");
 
 // Create a user route
@@ -29,5 +30,9 @@ user_router.get("/user", get_user);
 // Delete a user route
 
 user_router.delete("/user", deleteUser);
+
+// Modify a user route
+
+user_router.put("/user",modify_user)
 
 module.exports = user_router;
