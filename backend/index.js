@@ -8,6 +8,8 @@ const compression = require("compression");
 const db = require("./config/database.js");
 const user_router = require("./routes/user_routes");
 const User = require("./models/User");
+const game_router = require("./routes/game_routes.js");
+const Game = require('./models/Game');
 const port = 8000;
 
 // Middleware Setup
@@ -39,6 +41,7 @@ app.use(express.json());
 // Set up user router
 
 app.use("/users", user_router);
+app.use('/games', game_router);
 
 app.get("/", (req, res) => {
   res.send("Checking if backend is setup");
