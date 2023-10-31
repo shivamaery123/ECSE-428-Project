@@ -19,11 +19,6 @@ const User = sequelize.define("users", {
     type: DataTypes.STRING(200),
     allowNull: false,
   },
-
-  registration_date: {
-    type: DataTypes.DATE,
-    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-  },
 });
 
 module.exports = User;

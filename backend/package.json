@@ -4,7 +4,7 @@
   "description": "ECSE428 Project Group 7",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run start",
     "server": "npm start --prefix frontend",
     "client": "npm start --prefix backend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -31,6 +31,7 @@
     "sequelize": "^6.33.0"
   },
   "devDependencies": {
+    "axios": "^1.6.0",
     "concurrently": "^8.2.2",
     "nodemon": "^3.0.1"
   }
