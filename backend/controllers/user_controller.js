@@ -120,4 +120,48 @@ const get_user = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, get_all_users, get_user, deleteUser };
+// Modify a user by email
+const modify_user = async(req,res) => {
+  try {
+    const { email, newEmail, newUsername, newPassword } = req.body;
+
+    //retrieve user by email
+    const user = await User.findOne({
+      where: {
+        email: email,
+      },
+    });
+    if (user == null) {
+      res.status(404).json({
+        status: "Failed",
+        message: `User does not exist.`,
+      });
+    } else {
+      if(newEmail!=null && newEmail!="") {
+        await user.update({email: newEmail})
+      }
+      if(newUsername!=null && newUsername!="") {
+        await user.update({username: newUsername})
+      }
+      if(newPassword!=null && newPassword!="") {
+        await user.update({password: newPassword})
+      }
+      res.status(200).json({
+        status: "Success",
+        message: "User modified successfully",
+        data: {
+          user: user,
+        },
+      });
+
+    }
+
+  } catch(err) {
+    res.status(400).json({
+      status: "Failed",
+      message: `Failed to modify user, ${err}`
+    });
+  }
+}
+
+module.exports = { registerUser, get_all_users, get_user, deleteUser, modify_user };
