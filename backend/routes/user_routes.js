@@ -1,18 +1,17 @@
 /**
  * This file is used to setup the routes of the application
  */
-
 const express = require("express");
+const user_router = express.Router();
 
 // Create user router
-
-const user_router = express.Router();
 const {
   registerUser,
   get_all_users,
   get_user,
   deleteUser,
   modify_user,
+  login,
 } = require("../controllers/user_controller");
 
 // Create a user route
@@ -34,5 +33,7 @@ user_router.delete("/user", deleteUser);
 // Modify a user route
 
 user_router.put("/user",modify_user)
+
+user_router.post('/login', login)
 
 module.exports = user_router;
