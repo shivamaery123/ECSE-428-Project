@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import SignUp from './SignUp';
-import App from './App';
+import SignUp from './SignUp.js';
+import Login from './Login.js';
+import App from './App.js';
 //import reportWebVitals from './reportWebVitals';
 //mport { BrowserRouter } from 'react-router-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <SignUp />
+  },
+  {
+    path: "/login",
+    element: <Login />
   }
 ]);
 

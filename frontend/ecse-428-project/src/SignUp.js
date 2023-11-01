@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './SignUp.css';
 import { Link } from "react-router-dom";
-import { signUpUser } from './api';
+import { signUpUser } from './api.js';
 
 function SignUp() {
   
@@ -58,7 +58,7 @@ function SignUp() {
                     value="Sign up"
                 />
 
-                <p>You already have an account? <Link to="/">Log in</Link></p>
+                <p>You already have an account? <Link to="/login">Log in</Link></p>
             </form>
 
         </div>
