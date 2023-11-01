@@ -10,7 +10,8 @@ function Login() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const response = await loginUser(username, password);
-        
+        setUsername("");
+        setPassword("");
         if (response.success) {
             console.log('Logged in successfully:', response.data);
         } else {
