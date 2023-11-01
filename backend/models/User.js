@@ -1,5 +1,11 @@
+/**
+ * This file is used to setup model User of the database so that we can store users
+ */
+
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../config/database.js");
+
+// User model
 
 const User = sequelize.define("users", {
   user_id: {
@@ -18,11 +24,6 @@ const User = sequelize.define("users", {
   password: {
     type: DataTypes.STRING(200),
     allowNull: false,
-  },
-
-  registration_date: {
-    type: DataTypes.DATE,
-    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
   },
 });
 

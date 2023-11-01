@@ -1,3 +1,7 @@
+/**
+ * This file is used to setup the application and its middleware
+ */
+
 const express = require("express");
 const app = express();
 const cors = require("cors");
