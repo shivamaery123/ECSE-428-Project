@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { loginUser } from './api';
+import { Link } from "react-router-dom";
+import { loginUser } from './api.js';
+import './Login.css';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -16,23 +18,42 @@ function Login() {
         }
     };
 
+
     return (
-        <form onSubmit={handleSubmit}>
-            <input 
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-            />
-            <input 
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-            />
-            <button type="submit">Login</button>
-        </form>
-    );
+    <div className="Login">
+        <div className="Login-Title">Create an account</div>
+        <div className="Login-FormBackground">
+            <form className="Login-Form" onSubmit={handleSubmit}>
+                <label htmlFor="username">Username</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+
+                <label htmlFor="password">Password</label>
+                <input 
+                  type="password" 
+                  id="password" 
+                  name="password" 
+                  password={true} 
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <input 
+                    type="submit" 
+                    value="Login"
+                />
+                <p>You don't have an account? <Link to="/signup">Signup</Link></p>
+
+            </form>
+
+        </div>
+
+    </div>
+  );
 }
 
 export default Login;
