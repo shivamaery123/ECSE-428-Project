@@ -90,5 +90,23 @@ describe('User Creation', () => {
       expect(res.json).toHaveBeenCalledWith({ status: 'Failed', message: expect.stringMatching(/^User was not created/)});
 
     });
+
+    test('createUser should create the user: password empty', async () => {
+
+      const req = {
+        body: { username: 'testuser', email: 'test@email.com', password: ''},
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+  
+      await createUser(req, res);
+  
+      //assertions
+      expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.json).toHaveBeenCalledWith({ status: 'Success', message: 'User created successfully', data:{user: expect.any(Object)}});
+
+    });
     
   });
