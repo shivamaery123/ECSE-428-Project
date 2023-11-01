@@ -3,7 +3,7 @@ const Game = require('../models/Game')
 const createGame = async (req, res) => {
     try {
       const { game_name, game_creator, game_type } = req.body;
-      const game = await User.create({ game_name, game_creator, game_type });
+      const game = await Game.create({ game_name, game_creator, game_type });
       res.status(201).json({
         status: "Success",
         message: "Game created successfully",
