@@ -36,4 +36,59 @@ describe('User Creation', () => {
       expect(res.json).toHaveBeenCalledWith({ status: 'Failed', message: expect.stringMatching(/^User was not created/)});
 
     });
+
+    test('createUser should not create the user: username null', async () => {
+
+      const req = {
+        body: { username: null, email: 'test@email.com', password: 'testpassword'},
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+  
+      await createUser(req, res);
+  
+      //assertions
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ status: 'Failed', message: expect.stringMatching(/^User was not created/)});
+
+    });
+
+    test('createUser should not create the user: email null', async () => {
+
+      const req = {
+        body: { username: 'testuser', email: null, password: 'testpassword'},
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+  
+      await createUser(req, res);
+  
+      //assertions
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ status: 'Failed', message: expect.stringMatching(/^User was not created/)});
+
+    });
+
+    test('createUser should not create the user: password null', async () => {
+
+      const req = {
+        body: { username: 'testuser', email: 'test@email.com', password: null},
+      };
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      };
+  
+      await createUser(req, res);
+  
+      //assertions
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ status: 'Failed', message: expect.stringMatching(/^User was not created/)});
+
+    });
+    
   });
