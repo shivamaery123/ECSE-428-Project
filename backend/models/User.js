@@ -4,6 +4,7 @@
 
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../config/database.js");
+const GameHistory = require("./Game.js");
 
 // User model
 
@@ -25,6 +26,11 @@ const User = sequelize.define("users", {
     type: DataTypes.STRING(200),
     allowNull: false,
   },
+
+  // game_history: {
+  //   type: GameHistory,
+  //   allowNull: true,
+  // },
 });
 
 module.exports = User;
