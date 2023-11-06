@@ -27,10 +27,17 @@ const User = sequelize.define("users", {
     allowNull: false,
   },
 
-  // game_history: {
-  //   type: GameHistory,
-  //   allowNull: true,
-  // },
+  registration_date: {
+    type: DataTypes.DATE,
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+  },
+
+  game_history: {
+    type: DataTypes.STRING(200), 
+    allowNull: false,
+    defaultValue: "[]",
+  }
+
 });
 
 module.exports = User;

@@ -9,6 +9,9 @@ const {
   registerUser,
   get_all_users,
   get_user,
+  addGameToHistory,
+  removeGameFromHistory,
+  retrieveGameHistory,
   deleteUser,
   modify_user,
   login,
@@ -37,5 +40,10 @@ user_router.put("/user",modify_user)
 // Login the user
 
 user_router.post('/login', login)
+
+user_router.post("/game/add", addGameToHistory);         
+user_router.delete("/game/remove", removeGameFromHistory); 
+user_router.delete("/game/clear", ClearGameHistory);      
+user_router.get("/game/history", retrieveGameHistory);   
 
 module.exports = user_router;
