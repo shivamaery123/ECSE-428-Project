@@ -40,29 +40,11 @@ const get_all_games = async (req, res) => {
 const get_game = async(req,res) => {
     try {
         const query = req.query
-        var game = null
-
-        if('game_name' in query) {
-        game = await Game.findOne({
+        var game = await Game.findOne({
             where: {
             game_name: query.game_name
             }
         });
-        } else if('id' in query) {
-        game = await Game.findOne({
-            where: {
-            game_id: query.id
-            }
-        });
-        } else throw new Error("Invalid query")
-
-
-        if(game == null) {
-        res.status(404).json({
-            status: "Failed",
-            message: `Game does not exist.`
-        });
-        } else {
         res.status(201).json({
             status: "Success",
             message: "Game retrieved successfully.",
@@ -70,7 +52,6 @@ const get_game = async(req,res) => {
             game: game
             },
         });
-        }
 
     } catch (err) {
         res.status(400).json({
@@ -80,4 +61,4 @@ const get_game = async(req,res) => {
     }
 }
 
-module.exports = { createGame, get_all_games, get_game};
+module.exports = { createGame, get_all_games, get_game };

@@ -5,16 +5,16 @@ const express = require("express");
 const user_router = express.Router();
 
 // Create user router
-const {
-  registerUser,
-  get_all_users,
-  get_user,
-  addGameToHistory,
+const {registerUser, 
+  get_all_users, 
+  get_user, 
+  addGameToHistory, 
   removeGameFromHistory,
+  clearGameHistory,
   retrieveGameHistory,
   deleteUser,
   modify_user,
-  login,
+  login
 } = require("../controllers/user_controller");
 
 // Create a user route
@@ -43,7 +43,7 @@ user_router.post('/login', login)
 
 user_router.post("/game/add", addGameToHistory);         
 user_router.delete("/game/remove", removeGameFromHistory); 
-user_router.delete("/game/clear", ClearGameHistory);      
+user_router.delete("/game/clear", clearGameHistory);      
 user_router.get("/game/history", retrieveGameHistory);   
 
 module.exports = user_router;
