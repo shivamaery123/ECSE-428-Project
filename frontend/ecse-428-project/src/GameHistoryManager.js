@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { UserContext } from './UserContext'; //SEE COMMENT ON LINE 6
+import './GameHistoryManager.css';
 
 const gameHistoryManager = () => {
     const { userId } = useContext(UserContext); //NOTE: THIS LINE NEEDS TO BE CHANGED BASED ON HOW THE USER'S INFO IS STORED WHEN THEY LOG IN.
