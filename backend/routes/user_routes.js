@@ -14,6 +14,10 @@ const {
   deleteUser,
   modify_user,
   login,
+  addGameToHistory,
+  removeGameFromHistory,
+  ClearGameHistory,
+      retreiveGameHistory
 } = require("../controllers/user_controller");
 
 // Create a user route
@@ -39,5 +43,17 @@ user_router.put("/user",modify_user)
 // Login the user
 
 user_router.post('/login', login)
+
+//add a game to game histroy route
+user_router.post("/game/add", addGameToHistory);     
+
+//remove a game from game histroy route
+user_router.delete("/game/remove", removeGameFromHistory); 
+
+//clear game histroy route
+user_router.delete("/game/clear", ClearGameHistory);      
+
+//retreive game histroy route
+user_router.get("/game/history", retrieveGameHistory);   
 
 module.exports = user_router;
