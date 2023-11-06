@@ -3,8 +3,8 @@ const Sequelize = require("sequelize");
 const dbConfig = {
   host: "localhost",
   user: "root",
-  password: "0000",
-  database: "ecse-428-project",
+  password: "MyNewPass",
+  database: "ecse",
   dialect: "mysql",
 };
 
