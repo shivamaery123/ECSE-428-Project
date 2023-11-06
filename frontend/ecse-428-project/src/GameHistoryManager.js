@@ -68,26 +68,41 @@ const GameHistoryManager = () => {
     };
     
     return (
-        <div>
-            <div>
-                <label>Game:</label>
-                <input type="text" value={game} onChange={e => setGame(e.target.value)} />
-                <button onClick={handleAddGame}>Add Game</button>
-                <button onClick={handleRemoveGame}>Remove Game</button>
-            </div>
-
-            <button onClick={handleRetrieveGameHistory}>Retrieve Game History</button>
-            <button onClick={handleClearHistory}>Clear Game History</button>
-
-            <div>
-                <h3>Game History:</h3>
-                <ul>
-                    {gameHistory.map((g, index) => <li key={index}>{g}</li>)}
-                </ul>
-            </div>
+    <div className="GameHistoryManager">
+        <div className="GameHistoryManager-InputSection">
+            <label>Game:</label>
+            <input 
+              type="text" 
+              value={game} 
+              onChange={e => setGame(e.target.value)} 
+            />
+            <button onClick={handleAddGame}>Add Game</button>
+            <button 
+              onClick={handleRemoveGame} 
+              disabled={gameHistory.length === 0}
+            >
+              Remove Game
+            </button>
         </div>
-    );
-};
+
+        <button onClick={handleRetrieveGameHistory}>Retrieve Game History</button>
+        <button 
+          onClick={handleClearHistory} 
+          disabled={gameHistory.length === 0}
+        >
+          Clear Game History
+        </button>
+
+        {message && <div className="GameHistoryManager-Message">{message}</div>}
+
+        <div className="GameHistoryManager-History">
+            <h3>Game History:</h3>
+            <ul>
+                {gameHistory.map((g, index) => <li key={index}>{g}</li>)}
+            </ul>
+        </div>
+    </div>
+);
 
 
 export default gameHistoryManager;
