@@ -1,32 +1,31 @@
-const { Sequelize, DataTypes } = require("sequelize");
+/**
+ * This file is used to setup model User of the database so that we can store users
+ */
+const { Sequelize, DataTypes, STRING } = require("sequelize");
 const sequelize = require("../config/database.js");
+const User = require("./User.js");
 
-const Game = sequelize.define("games", {
-  game_id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
+// User model
 
-  game_name: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-  },
+const Game = sequelize.define("game", {
+    game_id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
 
-  game_creator: { 
-      type: DataTypes.STRING(100), 
-      allowNull: false 
-  },
+    title: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+    },
+    });
 
-  game_type: {
-    type: DataTypes.ENUM,
-    values: ['Action', 'Adventure', 'Strategy', 'Racing', 'Sports', 'RPG']
-  },
+    Game.associate = (models) => {
+        // Define associations (e.g., a foreign key to User table)
+        Game.belongsTo(models.User, { foreignKey: 'user_id' });
+    },
 
-  release_date: {
-    type: DataTypes.DATE,
-    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-  }
-});
+
+
 
 module.exports = Game;
