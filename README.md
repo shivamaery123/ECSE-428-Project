@@ -21,10 +21,12 @@ npm run start
 
 ## Setup Frontend
 
-### Install Node.js 
+### Install Node.js
+
 https://nodejs.org \
 
 To check version:
+
 ```bash
 node -v
 ```
@@ -32,6 +34,25 @@ node -v
 ### To run:
 
 Navigate to /ECSE-428-Project/frontend/ecse-428-project
+
 ```bash
 npm start
+```
+
+## To run tests
+
+First make sure the backend is running
+
+Then from root of project
+
+```bash
+cd tests
+```
+
+```bash
+npm install
+```
+
+```bash
+npm test
 ```

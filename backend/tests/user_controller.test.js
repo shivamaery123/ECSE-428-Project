@@ -1,7 +1,7 @@
-const {createUser} = require('../controllers/user_controller');
+const {registerUser} = require('../controllers/user_controller');
 
 describe('User Creation', () => {
-    test('createUser should create the user', async () => {
+    test('registerUser should create the user', async () => {
 
       const req = {
         body: { username: 'testuser', email: 'test@email.com', password: 'testpassword'},
@@ -11,15 +11,15 @@ describe('User Creation', () => {
         json: jest.fn(),
       };
   
-      await createUser(req, res);
+      await registerUser(req, res);
   
       //assertions
       expect(res.status).toHaveBeenCalledWith(201);
-      expect(res.json).toHaveBeenCalledWith({ status: 'Success', message: 'User created successfully', data:{user: expect.any(Object)}});
+      expect(res.json).toHaveBeenCalledWith({ status: 'Success', message: 'User registered successfully', data:{user: expect.any(Object)}});
 
     });
 
-    test('createUser should not create the user: req body invalid', async () => {
+    test('registerUser should not create the user: req body invalid', async () => {
 
       const req = {
         body: { email: 'test@email.com', password: 'testpassword'},
@@ -29,7 +29,7 @@ describe('User Creation', () => {
         json: jest.fn(),
       };
   
-      await createUser(req, res);
+      await registerUser(req, res);
   
       //assertions
       expect(res.status).toHaveBeenCalledWith(400);
@@ -37,7 +37,7 @@ describe('User Creation', () => {
 
     });
 
-    test('createUser should not create the user: username null', async () => {
+    test('registerUser should not create the user: username null', async () => {
 
       const req = {
         body: { username: null, email: 'test@email.com', password: 'testpassword'},
@@ -47,7 +47,7 @@ describe('User Creation', () => {
         json: jest.fn(),
       };
   
-      await createUser(req, res);
+      await registerUser(req, res);
   
       //assertions
       expect(res.status).toHaveBeenCalledWith(400);
@@ -55,7 +55,7 @@ describe('User Creation', () => {
 
     });
 
-    test('createUser should not create the user: email null', async () => {
+    test('registerUser should not create the user: email null', async () => {
 
       const req = {
         body: { username: 'testuser', email: null, password: 'testpassword'},
@@ -65,7 +65,7 @@ describe('User Creation', () => {
         json: jest.fn(),
       };
   
-      await createUser(req, res);
+      await registerUser(req, res);
   
       //assertions
       expect(res.status).toHaveBeenCalledWith(400);
@@ -73,7 +73,7 @@ describe('User Creation', () => {
 
     });
 
-    test('createUser should not create the user: password null', async () => {
+    test('registerUser should not create the user: password null', async () => {
 
       const req = {
         body: { username: 'testuser', email: 'test@email.com', password: null},
@@ -83,7 +83,7 @@ describe('User Creation', () => {
         json: jest.fn(),
       };
   
-      await createUser(req, res);
+      await registerUser(req, res);
   
       //assertions
       expect(res.status).toHaveBeenCalledWith(400);
@@ -91,7 +91,7 @@ describe('User Creation', () => {
 
     });
 
-    test('createUser should create the user: password empty', async () => {
+    test('registerUser should create the user: password empty', async () => {
 
       const req = {
         body: { username: 'testuser', email: 'test@email.com', password: ''},
@@ -101,11 +101,11 @@ describe('User Creation', () => {
         json: jest.fn(),
       };
   
-      await createUser(req, res);
+      await registerUser(req, res);
   
       //assertions
       expect(res.status).toHaveBeenCalledWith(201);
-      expect(res.json).toHaveBeenCalledWith({ status: 'Success', message: 'User created successfully', data:{user: expect.any(Object)}});
+      expect(res.json).toHaveBeenCalledWith({ status: 'Success', message: 'User registered successfully', data:{user: expect.any(Object)}});
 
     });
     
