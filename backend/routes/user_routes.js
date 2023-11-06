@@ -16,7 +16,7 @@ const {
   login,
   addGameToHistory,
   removeGameFromHistory,
-  ClearGameHistory,
+  clearGameHistory,
       retreiveGameHistory
 } = require("../controllers/user_controller");
 
@@ -51,7 +51,7 @@ user_router.post("/game/add", addGameToHistory);
 user_router.delete("/game/remove", removeGameFromHistory); 
 
 //clear game histroy route
-user_router.delete("/game/clear", ClearGameHistory);      
+user_router.delete("/game/clear", clearGameHistory);      
 
 //retreive game histroy route
 user_router.get("/game/history", retrieveGameHistory);   
