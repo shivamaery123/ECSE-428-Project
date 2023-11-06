@@ -81,7 +81,7 @@ const get_all_users = async (req, res) => {
 // Get a user via id or email
 const get_user = async (req, res) => {
   try {
-    const query = req.query;
+    const query = req.body;
     var user = null;
 
     if ("email" in query) {
