@@ -34,6 +34,8 @@ user_router.delete("/user", deleteUser);
 
 user_router.put("/user",modify_user)
 
+// Login the user
+
 user_router.post('/login', login)
 
 module.exports = user_router;

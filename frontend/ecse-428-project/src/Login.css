@@ -1,0 +1,55 @@
+.Login {
+    text-align: center;
+    background-color: #EDEDED;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    min-height: 130vh;
+
+}
+.Login-Title{
+  margin-bottom: 20px;
+  font-size: 30px;
+  margin-top: 50px;
+}
+.Login-FormBackground {
+  background-color: white;
+  padding: 50px;
+}
+
+.Login-Form{
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+}
+
+label{
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: rgb(71, 71, 71);
+  margin-left: 10px;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  height: 40px;
+  font-size: 20px;
+}
+
+input[type=submit]{
+  width: 460px;
+  background-color: #536EFF;
+  margin-top: 30px;
+  height: 50px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 20px;
+}
+
+input[type=submit]:hover {
+  background-color: #2646ff;
+}

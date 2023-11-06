@@ -205,4 +205,4 @@ const login = async(req, res) => {
   }
 }
 
-module.exports = { registerUser, get_all_users, get_user, deleteUser, modify_user, login };
+module.exports = { registerUser, get_all_users, get_user, deleteUser, modify_user, login};
