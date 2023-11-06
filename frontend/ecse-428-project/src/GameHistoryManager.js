@@ -69,7 +69,6 @@ const GameHistoryManager = () => {
     
     return (
         <div>
-            {/* Removed the User ID input as it's now obtained from context */}
             <div>
                 <label>Game:</label>
                 <input type="text" value={game} onChange={e => setGame(e.target.value)} />
