@@ -248,10 +248,10 @@ const addGameToHistory= async (req, res) => {
 
 const removeGameFromHistory = async (req, res) => {
     try {
-        const userId = req.body.user_id;
-        const game = req.body.game;
+        const username = req.body.username;
+        const game_name = req.body.game_name;
 
-        const user = await User.findOne({ where: { user_id: userId } });
+        const user = await User.findOne({ where: { username: username } });
 
         if (!user) {
             return res.status(404).json({
@@ -269,7 +269,7 @@ const removeGameFromHistory = async (req, res) => {
             });
         }
 
-        const gameIndex = gameHistory.indexOf(game);
+        const gameIndex = gameHistory.indexOf(game_name);
 
         if (gameIndex === -1) {
             return res.status(404).json({
@@ -295,9 +295,9 @@ const removeGameFromHistory = async (req, res) => {
 
 const clearGameHistory = async (req, res) => {
     try {
-        const userId = req.body.user_id;
+        const username = req.body.username;
 
-        const user = await User.findOne({ where: { user_id: userId } });
+        const user = await User.findOne({ where: { username: username } });
 
         if (!user) {
             return res.status(404).json({
@@ -322,9 +322,9 @@ const clearGameHistory = async (req, res) => {
 
 const retrieveGameHistory = async (req, res) => {
     try {
-        const userId = req.query.user_id;
+        const username = req.body.username;
 
-        const user = await User.findOne({ where: { user_id: userId } });
+        const user = await User.findOne({ where: { username: username } });
 
         if (!user) {
             return res.status(404).json({
@@ -337,6 +337,7 @@ const retrieveGameHistory = async (req, res) => {
 
         res.status(200).json({
             status: "Success",
+            message: "Game history successfully retrieved.",
             data: gameHistory
         });
     } catch (err) {
