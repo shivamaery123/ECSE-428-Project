@@ -101,8 +101,6 @@ describe('Game Retrieval', () => {
   
       //assertions
       expect(res_get.status).toHaveBeenCalledWith(201);
-      //expect(res_get.json.status).toHaveBeenCalledWith('Success');
-      //expect(res_get.json.message).toHaveBeenCalledWith('Game retrieved successfully.');
 
     });
 

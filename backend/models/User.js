@@ -39,6 +39,7 @@ const User = sequelize.define("users", {
     type: DataTypes.STRING(200), 
     allowNull: false,
     defaultValue: "[]",
+
   },
 
 });

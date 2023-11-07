@@ -3,6 +3,7 @@
  */
 
 const User = require("../models/User");
+const Game = require("../models/Game");
 
 // Register a user for their account
 
@@ -208,21 +209,27 @@ const addGameToHistory= async (req, res) => {
 
   try{
     //getting userID and game from the request
-    const userId= req.body.user_id;
-    const game= req.body.game; //NOTE: MIGHT NEED TO BE CHANGED BASED ON THE GAME MODEL
+    const username= req.body.username;
+    const game_name= req.body.game_name; //NOTE: MIGHT NEED TO BE CHANGED BASED ON THE GAME MODEL
 
     //Fetching the respective user from the database
-    const user= await User.findOne({ where: { user_id: userId } });
-
+    const user= await User.findOne({ where: { username: username } });
+    const game= await Game.findOne({ where: { game_name: game_name } });
     if (!user) {
             return res.status(404).json({
                 status: "Failed",
                 message: "User not found."
             });
         }
-  
+
+    if (!game) {
+      return res.status(404).json({
+          status: "Failed",
+          message: "Game not found."
+      });
+    }
     let gameHistory = JSON.parse(user.game_history); 
-    gameHistory.push(game);
+    gameHistory.push(game_name);
 
     await user.update({ game_history: JSON.stringify(gameHistory) });
 
