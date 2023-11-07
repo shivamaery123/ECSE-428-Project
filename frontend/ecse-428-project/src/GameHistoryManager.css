@@ -1,0 +1,86 @@
+
+.GameHistoryManager {
+  text-align: center;
+  background-color: #F7F7F7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.GameHistoryManager-Title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+.GameHistoryManager-InputSection {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.GameHistoryManager-InputSection label {
+  margin-right: 10px;
+  font-size: 18px;
+  color: #474747;
+}
+
+.GameHistoryManager-InputSection input[type="text"] {
+  width: 200px;
+  height: 35px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.GameHistoryManager-InputSection button {
+  height: 35px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  padding: 0 15px;
+}
+
+.GameHistoryManager-InputSection button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.GameHistoryManager-InputSection button:not(:disabled) {
+  background-color: #536EFF;
+}
+
+.GameHistoryManager-InputSection button:not(:disabled):hover {
+  background-color: #2646ff;
+}
+
+.GameHistoryManager-History {
+  width: 60%;
+  margin-top: 20px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.GameHistoryManager-History ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.GameHistoryManager-History li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.GameHistoryManager-History li:last-child {
+  border-bottom: none;
+}
+
+.GameHistoryManager-Message {
+  color: red;
+  margin-top: 20px;
+}
