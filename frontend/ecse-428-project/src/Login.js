@@ -14,6 +14,7 @@ function Login() {
         setPassword("");
         if (response.success) {
             console.log('Logged in successfully:', response.data);
+            localStorage.setItem('loggedInUser', JSON.stringify(response.data)); //added by saif
         } else {
             console.error('Login failed:', response.error);
         }
