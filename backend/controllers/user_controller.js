@@ -211,7 +211,7 @@ const addGameToHistory= async (req, res) => {
     const game= req.body.game; //NOTE: MIGHT NEED TO BE CHANGED BASED ON THE GAME MODEL
 
     //Fetching the respective user from the database
-    const user= await User, findOne({ where: { user_id: userId } });
+    const user= await User.findOne({ where: { user_id: userId } });
 
     if (!user) {
             return res.status(404).json({
@@ -220,10 +220,10 @@ const addGameToHistory= async (req, res) => {
             });
         }
 
-    let gameHistory = JSON.parse(user.game_history); 
+    let gameHistory = user.game_history; 
     gameHistory.push(game);
 
-    await user.update({ game_history: JSON.stringify(gameHistory) });
+    await user.update({ game_history: gameHistory });
 
     res.status(200).json({
             status: "Success",
@@ -252,7 +252,7 @@ const removeGameFromHistory = async (req, res) => {
             });
         }
 
-        let gameHistory = JSON.parse(user.game_history);
+        let gameHistory = user.game_history;
 
         if (gameHistory.length === 0) {
             return res.status(404).json({
@@ -271,7 +271,7 @@ const removeGameFromHistory = async (req, res) => {
         }
 
         gameHistory.splice(gameIndex, 1);
-        await user.update({ game_history: JSON.stringify(gameHistory) });
+        await user.update({ game_history: gameHistory });
 
         res.status(200).json({
             status: "Success",
@@ -298,7 +298,7 @@ const clearGameHistory = async (req, res) => {
             });
         }
 
-        await user.update({ game_history: "[]" });
+         await user.update({ game_history: [] });
 
         res.status(200).json({
             status: "Success",
@@ -325,7 +325,7 @@ const retrieveGameHistory = async (req, res) => {
             });
         }
 
-        const gameHistory = JSON.parse(user.game_history);
+        const gameHistory = user.game_history;
 
         res.status(200).json({
             status: "Success",
