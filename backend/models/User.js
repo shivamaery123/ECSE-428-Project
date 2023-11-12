@@ -29,7 +29,7 @@ const User = sequelize.define("users", {
   game_history: {
     type: DataTypes.TEXT, // Changed to TEXT to store longer strings
     allowNull: false,
-    defaultValue: "[]", // Default value as an empty array in JSON format
+    defaultValue: "[]", 
     get() {
       const rawValue = this.getDataValue('game_history');
       return rawValue ? JSON.parse(rawValue) : [];
