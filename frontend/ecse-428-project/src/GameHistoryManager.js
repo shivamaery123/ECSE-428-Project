@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { getUserIdByUsername, getGameHistory, addGameToHistory, removeGameFromHistory, clearGameHistory } from './api';
+import React, { useState, useContext, useEffect } from 'react';
+import { getUserIdByUsername, getGameHistory, addGameToHistory, removeGameFromHistory, clearGameHistory } from './api.js';
 import './GameHistoryManager.css';
 
 const GameHistoryManager = () => {
@@ -128,11 +128,10 @@ const GameHistoryManager = () => {
     </div>
 );
 
+}
+export default GameHistoryManager;
 
-export default gameHistoryManager;
-
-
-'''
+/*
     const handleRemoveGame = () => {
         if (gameHistory.length === 0) {
             setMessage("No games are in your game history.");
@@ -169,4 +168,5 @@ export default gameHistoryManager;
                 console.error('Error clearing game history:', error);
             });
     };
-'''
+*/
+
