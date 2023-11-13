@@ -4,6 +4,7 @@
 
 const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../config/database.js");
+//const GameHistory = require("./Game.js");
 
 // User model
 
@@ -19,7 +20,10 @@ const User = sequelize.define("users", {
     allowNull: false,
   },
 
-  email: { type: DataTypes.STRING(100), allowNull: false },
+  email: { 
+    type: DataTypes.STRING(100), 
+    allowNull: false 
+  },
 
   password: {
     type: DataTypes.STRING(200),
@@ -38,7 +42,7 @@ const User = sequelize.define("users", {
       this.setDataValue('game_history', JSON.stringify(value));
     }
   },
-  
+
 });
 
 module.exports = User;
