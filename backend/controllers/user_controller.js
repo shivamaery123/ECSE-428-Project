@@ -82,27 +82,14 @@ const get_all_users = async (req, res) => {
 // Get a user via id or email
 const get_user = async (req, res) => {
   try {
-    const query = req.body;
-    var user = null;
-
-    if ("email" in query) {
-      user = await User.findOne({
-        where: {
-          email: query.email,
-        },
-      });
-    } else if ("id" in query) {
-      user = await User.findOne({
-        where: {
-          user_id: query.id,
-        },
-      });
-    } else if("username" in query) {
-      user = await User.findOne({
-        where: {
-          username: query.username
-        }
-      })
+    const { username, email, id } = req.query;
+    let user;
+    if (id) {
+      user = await User.findByPk(id);
+    } else if (email) {
+      user = await User.findOne({ where: { email: email } });
+    } else if (username) {
+      user = await User.findOne({ where: { username: username } });
     } else throw new Error("Invalid query");
 
     if (user == null) {
@@ -208,13 +195,23 @@ const login = async(req, res) => {
 const addGameToHistory= async (req, res) => {
 
   try{
+    const { user_id, username} = req.body;
+
     //getting userID and game from the request
-    const username= req.body.username;
+    //const user_id= req.body.user_id;
     const game_name= req.body.game_name; //NOTE: MIGHT NEED TO BE CHANGED BASED ON THE GAME MODEL
 
     //Fetching the respective user from the database
-    const user= await User.findOne({ where: { username: username } });
+    //const user= await User.findOne({ where: { user_id: user_id } });
+    let user;
+    if (user_id) {
+      user = await User.findByPk(user_id);
+    } else if (username) {
+      user = await User.findOne({ where: { username: username } });
+    } else throw new Error("Invalid query");
+
     const game= await Game.findOne({ where: { game_name: game_name } });
+
     if (!user) {
             return res.status(404).json({
                 status: "Failed",
@@ -248,10 +245,20 @@ const addGameToHistory= async (req, res) => {
 
 const removeGameFromHistory = async (req, res) => {
     try {
-        const username = req.body.username;
-        const game_name = req.body.game_name;
+        const { user_id, username} = req.body;
 
-        const user = await User.findOne({ where: { username: username } });
+        //getting userID and game from the request
+        //const user_id= req.body.user_id;
+        const game_name= req.body.game_name; //NOTE: MIGHT NEED TO BE CHANGED BASED ON THE GAME MODEL
+    
+        //Fetching the respective user from the database
+        //const user= await User.findOne({ where: { user_id: user_id } });
+        let user;
+        if (user_id) {
+          user = await User.findByPk(user_id);
+        } else if (username) {
+          user = await User.findOne({ where: { username: username } });
+        } else throw new Error("Invalid query");
 
         if (!user) {
             return res.status(404).json({
@@ -269,7 +276,7 @@ const removeGameFromHistory = async (req, res) => {
             });
         }
 
-        const gameIndex = gameHistory.indexOf(game_name);
+        const gameIndex = gameHistory.findIndex(i => i.game_name === game_name);
 
         if (gameIndex === -1) {
             return res.status(404).json({
@@ -295,9 +302,16 @@ const removeGameFromHistory = async (req, res) => {
 
 const clearGameHistory = async (req, res) => {
     try {
-        const username = req.body.username;
+        const { user_id, username} = req.body;
 
-        const user = await User.findOne({ where: { username: username } });
+        //Fetching the respective user from the database
+        //const user= await User.findOne({ where: { user_id: user_id } });
+        let user;
+        if (user_id) {
+          user = await User.findByPk(user_id);
+        } else if (username) {
+          user = await User.findOne({ where: { username: username } });
+        } else throw new Error("Invalid query");
 
         if (!user) {
             return res.status(404).json({
@@ -322,9 +336,15 @@ const clearGameHistory = async (req, res) => {
 
 const retrieveGameHistory = async (req, res) => {
     try {
-        const username = req.body.username;
-
-        const user = await User.findOne({ where: { username: username } });
+      const { user_id, username} = req.body;
+      //Fetching the respective user from the database
+      //const user= await User.findOne({ where: { user_id: user_id } });
+      let user;
+      if (user_id) {
+        user = await User.findByPk(user_id);
+      } else if (username) {
+        user = await User.findOne({ where: { username: username } });
+      } else throw new Error("Invalid query");
 
         if (!user) {
             return res.status(404).json({

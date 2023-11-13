@@ -102,13 +102,13 @@ describe('Remove Game from Game History', () => {
 
 
         const req_game = httpMocks.createRequest();
-        req_game.body = { game_name: 'testgame', game_creator: 'testcreator', game_type: 'Action'};
+        req_game.body = { game_name: 'testgame2', game_creator: 'testcreator', game_type: 'Action'};
         const res_game = httpMocks.createResponse();
         await createGame(req_game, res_game); // create game
   
 
         const req_add = {
-          body: { username: 'testuser', game_name: 'testgame'},
+          body: { username: 'testuser', game_name: 'testgame2'},
         };
         const res_add = {
           status: jest.fn().mockReturnThis(),
@@ -119,7 +119,7 @@ describe('Remove Game from Game History', () => {
 
         
         const req_history = {
-            body: { username: 'testuser', game_name: 'testgame'},
+            body: { username: 'testuser', game_name: 'testgame2'},
           };
           const res_history = {
             status: jest.fn().mockReturnThis(),

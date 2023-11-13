@@ -1,22 +1,22 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { getUserIdByUsername, getGameHistory, addGameToHistory, removeGameFromHistory, clearGameHistory } from './api.js';
+import { getUserIdByUsername, getGameHistory, addGameToHistory, removeGameFromHistory, clearGameHistory, getGame } from './api.js';
 import './GameHistoryManager.css';
 
 const GameHistoryManager = () => {
     const [userId, setUserId] = useState(null);
-    const [game, setGame] = useState('');
+    const [game_name, setGameName] = useState('');
     const [gameHistory, setGameHistory] = useState([]);
     const [message, setMessage] = useState('');
     
     useEffect(() => {
         try {
             const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-            if (loggedInUser && loggedInUser.username) {
+            if (loggedInUser && loggedInUser.data.username) {
                 // Fetch and set user ID based on username
                 const fetchUserId = async () => {
-                    const response = await getUserIdByUsername(loggedInUser.username);
+                    const response = await getUserIdByUsername(loggedInUser.data.username);
                     if (response.success) {
-                        setUserId(response.data.user_id);
+                        setUserId(response.data.data.user.user_id);
                     } else {
                         console.error('Error fetching user ID:', response.error);
                     }
@@ -37,7 +37,8 @@ const GameHistoryManager = () => {
         if (userId) {
             const response = await getGameHistory(userId);
             if (response.success) {
-                setGameHistory(response.data.user.game_history);
+                console.log(response);
+                setGameHistory(response.data.data);
             } else {
                 console.error('Error retrieving game history:', response.error);
             }
@@ -45,7 +46,9 @@ const GameHistoryManager = () => {
     };
 
     const handleAddGame = async () => {
-        const response = await addGameToHistory(userId, game);
+        const response = await addGameToHistory(userId, game_name);
+        const game_resp = await getGame(game_name);
+        const game = game_resp.data.game;
         if (response.success) {
             setGameHistory(prevHistory => [...prevHistory, game]);
             setMessage("Game added successfully.");
@@ -56,6 +59,8 @@ const GameHistoryManager = () => {
 
 
     const handleRemoveGame = async () => {
+        const response1 = await getGame(game_name);
+        const game = response1.data.game;
         if (gameHistory.length === 0) {
             setMessage("No games in your history to remove.");
             return;
@@ -65,7 +70,7 @@ const GameHistoryManager = () => {
             return;
         }
 
-        const response = await removeGameFromHistory(userId, game);
+        const response = await removeGameFromHistory(userId, game_name);
         if (response.success) {
             setGameHistory(prevHistory => prevHistory.filter(g => g !== game));
             setMessage("Game removed successfully.");
@@ -97,8 +102,8 @@ const GameHistoryManager = () => {
             <label>Game:</label>
             <input 
               type="text" 
-              value={game} 
-              onChange={e => setGame(e.target.value)} 
+              value={game_name} 
+              onChange={e => setGameName(e.target.value)} 
             />
             <button onClick={handleAddGame}>Add Game</button>
             <button 
