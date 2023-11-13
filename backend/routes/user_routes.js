@@ -14,15 +14,7 @@ const {registerUser,
   retrieveGameHistory,
   deleteUser,
   modify_user,
-<<<<<<< HEAD
   login
-=======
-  login,
-  addGameToHistory,
-  removeGameFromHistory,
-  clearGameHistory,
-      retreiveGameHistory
->>>>>>> b0ff953638179113d1652ce6cb77eb17c7763a02
 } = require("../controllers/user_controller");
 
 // Create a user route
@@ -58,7 +50,7 @@ user_router.delete("/game/remove", removeGameFromHistory);
 //clear game histroy route
 user_router.delete("/game/clear", clearGameHistory);      
 
-//retreive game histroy route
+//retrieve game histroy route
 user_router.get("/game/history", retrieveGameHistory);   
 
 module.exports = user_router;

@@ -1,14 +1,38 @@
-import React, { useState, useContext } from 'react';
-import { UserContext } from './UserContext'; //see comment on line 6
-import { getGameHistory, addGameToHistory, removeGameFromHistory, clearGameHistory } from './api';
+import React, { useState, useContext, useEffect } from 'react';
+import { getUserIdByUsername, getGameHistory, addGameToHistory, removeGameFromHistory, clearGameHistory } from './api.js';
 import './GameHistoryManager.css';
 
 const GameHistoryManager = () => {
-    const { userId } = useContext(UserContext); // not sure how to implement this line
+    const [userId, setUserId] = useState(null);
     const [game, setGame] = useState('');
     const [gameHistory, setGameHistory] = useState([]);
     const [message, setMessage] = useState('');
+    
+    useEffect(() => {
+        try {
+            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+            if (loggedInUser && loggedInUser.username) {
+                // Fetch and set user ID based on username
+                const fetchUserId = async () => {
+                    const response = await getUserIdByUsername(loggedInUser.username);
+                    if (response.success) {
+                        setUserId(response.data.user_id);
+                    } else {
+                        console.error('Error fetching user ID:', response.error);
+                    }
+                };
 
+                fetchUserId();
+            } else {
+                throw new Error("user is not logged in, cannot access their username in GameHistoryManager");
+            }
+        } catch (error) {
+            console.error(error.message);
+            setMessage(error.message);
+        }
+    }, []);
+    
+    
     const handleRetrieveGameHistory = async () => {
         if (userId) {
             const response = await getGameHistory(userId);
@@ -104,11 +128,10 @@ const GameHistoryManager = () => {
     </div>
 );
 
+}
+export default GameHistoryManager;
 
-export default gameHistoryManager;
-
-
-'''
+/*
     const handleRemoveGame = () => {
         if (gameHistory.length === 0) {
             setMessage("No games are in your game history.");
@@ -145,4 +168,5 @@ export default gameHistoryManager;
                 console.error('Error clearing game history:', error);
             });
     };
-'''
+*/
+

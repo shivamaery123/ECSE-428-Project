@@ -30,16 +30,17 @@ const User = sequelize.define("users", {
     allowNull: false,
   },
 
-  registration_date: {
-    type: DataTypes.DATE,
-    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-  },
-
   game_history: {
-    type: DataTypes.STRING(200), 
+    type: DataTypes.TEXT, // Changed to TEXT to store longer strings
     allowNull: false,
-    defaultValue: "[]",
-
+    defaultValue: "[]", 
+    get() {
+      const rawValue = this.getDataValue('game_history');
+      return rawValue ? JSON.parse(rawValue) : [];
+    },
+    set(value) {
+      this.setDataValue('game_history', JSON.stringify(value));
+    }
   },
 
 });

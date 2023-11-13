@@ -25,6 +25,15 @@ export const signUpUser = async (username, email, password) => {
     }
 };
 
+export const getUserIdByUsername = async (username) => {
+    try {
+        const response = await axios.get(`/users/get_user?username=${username}`);
+        return { success: true, data: response.data };
+    } catch (error) {
+        return { success: false, error: error.response?.data || error.message };
+    }
+};
+
 export const getGameHistory = async (userId) => {
     try {
         const response = await axios.get(`/user?user_id=${userId}`);
