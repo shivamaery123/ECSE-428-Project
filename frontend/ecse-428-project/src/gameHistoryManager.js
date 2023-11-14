@@ -6,7 +6,7 @@ const GameHistoryManager = () => {
     const [userId, setUserId] = useState(null);
     const [game_name, setGameName] = useState('');
     const [gameHistory, setGameHistory] = useState([]);
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState('');      
     
     useEffect(() => {
         try {
@@ -36,9 +36,15 @@ const GameHistoryManager = () => {
     const handleRetrieveGameHistory = async () => {
         if (userId) {
             const response = await getGameHistory(userId);
+            console.log(response);
             if (response.success) {
-                console.log(response);
-                setGameHistory(response.data.data);
+                let json = response.data.data;
+                console.log(response.data.data);
+                setGameHistory([]);
+                for(let i = 0; i < json.length; i++) {
+                
+                    setGameHistory(prevHistory => [...prevHistory, json[i]]);
+                }
             } else {
                 console.error('Error retrieving game history:', response.error);
             }
@@ -46,10 +52,19 @@ const GameHistoryManager = () => {
     };
 
     const handleAddGame = async () => {
-        const response = await addGameToHistory(userId, game_name);
         const game_resp = await getGame(game_name);
-        const game = game_resp.data.game;
+        const game = game_resp.data.data.game;
+        const found = gameHistory.some(g => g.game_name === game.game_name);
+
+        if (found) {
+            setMessage("Game already added to game history.");
+            return;
+        }
+        const response = await addGameToHistory(userId, game_name);
+        
+
         if (response.success) {
+            
             setGameHistory(prevHistory => [...prevHistory, game]);
             setMessage("Game added successfully.");
         } else {
@@ -59,20 +74,22 @@ const GameHistoryManager = () => {
 
 
     const handleRemoveGame = async () => {
-        const response1 = await getGame(game_name);
-        const game = response1.data.game;
+        const game_resp = await getGame(game_name);
+        const game = game_resp.data.data.game;
         if (gameHistory.length === 0) {
             setMessage("No games in your history to remove.");
             return;
         }
-        if (!gameHistory.includes(game)) {
+        const found = gameHistory.some(g => g.game_name === game.game_name);
+
+        if (!found) {
             setMessage("Game not found in history.");
             return;
         }
 
         const response = await removeGameFromHistory(userId, game_name);
         if (response.success) {
-            setGameHistory(prevHistory => prevHistory.filter(g => g !== game));
+            setGameHistory(prevHistory => prevHistory.filter(g => g.game_id !== game.game_id));
             setMessage("Game removed successfully.");
         } else {
             console.error('Error removing game:', response.error);
@@ -85,7 +102,7 @@ const GameHistoryManager = () => {
             setMessage("No games in your history to clear.");
             return;
         }
-
+        console.log(userId);
         const response = await clearGameHistory(userId);
         if (response.success) {
             setGameHistory([]);
@@ -96,7 +113,10 @@ const GameHistoryManager = () => {
         }
     };
     
-    return (
+
+    
+return (
+    
     <div className="GameHistoryManager">
         <div className="GameHistoryManager-InputSection">
             <label>Game:</label>
@@ -127,7 +147,7 @@ const GameHistoryManager = () => {
         <div className="GameHistoryManager-History">
             <h3>Game History:</h3>
             <ul>
-                {gameHistory.map((g, index) => <li key={index}>{g}</li>)}
+                {gameHistory.map((game) => (<li key={game.game_id}>{game.game_name}</li>))}
             </ul>
         </div>
     </div>

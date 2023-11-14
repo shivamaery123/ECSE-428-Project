@@ -245,11 +245,11 @@ const addGameToHistory= async (req, res) => {
 
 const removeGameFromHistory = async (req, res) => {
     try {
-        const { user_id, username} = req.body;
+        const { user_id, username} = req.query;
 
         //getting userID and game from the request
         //const user_id= req.body.user_id;
-        const game_name= req.body.game_name; //NOTE: MIGHT NEED TO BE CHANGED BASED ON THE GAME MODEL
+        const game_name= req.query.game_name; //NOTE: MIGHT NEED TO BE CHANGED BASED ON THE GAME MODEL
     
         //Fetching the respective user from the database
         //const user= await User.findOne({ where: { user_id: user_id } });
@@ -302,18 +302,18 @@ const removeGameFromHistory = async (req, res) => {
 
 const clearGameHistory = async (req, res) => {
     try {
-        const { user_id, username} = req.body;
+        const { user_id, username} = req.query;
 
         //Fetching the respective user from the database
         //const user= await User.findOne({ where: { user_id: user_id } });
-        let user;
+        var user;
         if (user_id) {
-          user = await User.findByPk(user_id);
+          user = await User.findOne({ where: { user_id: user_id } });
         } else if (username) {
           user = await User.findOne({ where: { username: username } });
         } else throw new Error("Invalid query");
 
-        if (!user) {
+        if (user == null) {
             return res.status(404).json({
                 status: "Failed",
                 message: "User not found."
@@ -336,17 +336,17 @@ const clearGameHistory = async (req, res) => {
 
 const retrieveGameHistory = async (req, res) => {
     try {
-      const { user_id, username} = req.body;
+      const { user_id, username} = req.query;
       //Fetching the respective user from the database
       //const user= await User.findOne({ where: { user_id: user_id } });
-      let user;
+      var user;
       if (user_id) {
         user = await User.findByPk(user_id);
       } else if (username) {
         user = await User.findOne({ where: { username: username } });
       } else throw new Error("Invalid query");
 
-        if (!user) {
+        if (user == null) {
             return res.status(404).json({
                 status: "Failed",
                 message: "User not found."

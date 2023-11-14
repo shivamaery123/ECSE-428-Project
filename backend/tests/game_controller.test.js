@@ -90,7 +90,7 @@ describe('Game Retrieval', () => {
       await createGame(req, res);
 
       const req_get = {
-        body: { game_name: 'testgame'},
+        query: { game_name: 'testgame'},
       };
       const res_get = {
         status: jest.fn().mockReturnThis(),
@@ -117,7 +117,7 @@ describe('Game Retrieval', () => {
         await createGame(req, res);
   
         const req_get = {
-          body: { inv_query: "test"},
+          query: { inv_query: "test"},
         };
         const res_get = {
           status: jest.fn().mockReturnThis(),
@@ -136,7 +136,7 @@ describe('Game Retrieval', () => {
       test('getGame that does not exists', async () => {
   
         const req_get = {
-          body: { game_name: "test"},
+          query: { game_name: "test"},
         };
         const res_get = {
           status: jest.fn().mockReturnThis(),
