@@ -119,7 +119,7 @@ describe('Remove Game from Game History', () => {
 
         
         const req_history = {
-            body: { username: 'testuser', game_name: 'testgame2'},
+            query: { username: 'testuser', game_name: 'testgame2'},
           };
           const res_history = {
             status: jest.fn().mockReturnThis(),
@@ -138,7 +138,7 @@ describe('Remove Game from Game History', () => {
     test('remove valid game from game history of inexistent user', async () => {
 
         const req_history = {
-            body: { username: 'invalid user', game_name: 'testgame'},
+            query: { username: 'invalid user', game_name: 'testgame'},
           };
           const res_history = {
             status: jest.fn().mockReturnThis(),
@@ -177,7 +177,7 @@ describe('Remove Game from Game History', () => {
         await addGameToHistory(req_add, res_add); // add game to user history
 
         const req_history = {
-            body: { username: 'testuser2', game_name: 'invalid game'},
+            query: { username: 'testuser2', game_name: 'invalid game'},
           };
           const res_history = {
             status: jest.fn().mockReturnThis(),
@@ -200,7 +200,7 @@ describe('Remove Game from Game History', () => {
         await registerUser(req, res); // create user
 
         const req_history = {
-            body: { username: 'testuser3', game_name: 'invalid game'},
+            query: { username: 'testuser3', game_name: 'invalid game'},
           };
           const res_history = {
             status: jest.fn().mockReturnThis(),
@@ -243,7 +243,7 @@ describe('Clear Game History', () => {
         await addGameToHistory(req_add, res_add); // add game to user history
 
         const req_history = {
-            body: { username: 'testuser'},
+            query: { username: 'testuser'},
           };
           const res_history = {
             status: jest.fn().mockReturnThis(),
@@ -261,7 +261,7 @@ describe('Clear Game History', () => {
     test('clear game history of inexistent user', async () => {
 
         const req_history = {
-            body: { username: 'invalid user'},
+            query: { username: 'invalid user'},
           };
           const res_history = {
             status: jest.fn().mockReturnThis(),
@@ -303,7 +303,7 @@ describe('Get Game History', () => {
         await addGameToHistory(req_add, res_add); // add game to user history
 
         const req_history = {
-            body: { username: 'testuser'},
+            query: { username: 'testuser'},
           };
           const res_history = {
             status: jest.fn().mockReturnThis(),
@@ -321,7 +321,7 @@ describe('Get Game History', () => {
     test('get game history of inexistent user', async () => {
 
         const req_history = {
-            body: { username: 'invalid user'},
+            query: { username: 'invalid user'},
           };
           const res_history = {
             status: jest.fn().mockReturnThis(),

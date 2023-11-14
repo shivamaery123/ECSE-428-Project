@@ -39,19 +39,19 @@ const get_all_games = async (req, res) => {
 
 const get_game = async(req,res) => {
     try {
-        const query = req.body
+        const {game_name, game_id} = req.query
         var game = null
 
-        if('game_name' in query) {
+        if(game_name) {
         game = await Game.findOne({
             where: {
-            game_name: query.game_name
+            game_name: game_name
             }
         });
-        } else if('id' in query) {
+        } else if(game_id) {
         game = await Game.findOne({
             where: {
-            game_id: query.id
+            game_id: game_id
             }
         });
         } else throw new Error(`Invalid query`)

@@ -54,7 +54,8 @@ export const addGameToHistory = async (userId, game_name) => {
 
 export const removeGameFromHistory = async (userId, game_name) => {
     try {
-        const response = await axios.post('http://localhost:8000/users/game/remove', { user_id: userId, game_name: game_name });
+
+        const response = await axios.delete(`http://localhost:8000/users/game/remove?user_id=${userId}&game_name=${game_name}`);
         return { success: true, data: response.data };
     } catch (error) {
         return { success: false, error: error.response.data || error.message };
@@ -63,7 +64,7 @@ export const removeGameFromHistory = async (userId, game_name) => {
 
 export const clearGameHistory = async (userId) => {
     try {
-        await axios.post('http://localhost:8000/users/game/clear', { user_id: userId });
+        await axios.delete(`http://localhost:8000/users/game/clear?user_id=${userId}`);
         return { success: true };
     } catch (error) {
         return { success: false, error: error.response.data || error.message };
@@ -73,7 +74,7 @@ export const clearGameHistory = async (userId) => {
 
 export const getGame = async (game_name) => {
     try {
-        const response = await axios.get('http://localhost:8000/games/get', { game_name: game_name });
+        const response = await axios.get(`http://localhost:8000/games/get?game_name=${game_name}`);
         return { success: true, data: response.data };
     } catch (error) {
         return { success: false, error: error.response.data || error.message };
