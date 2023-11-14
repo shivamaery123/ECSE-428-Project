@@ -3,6 +3,7 @@
  */
 
 const User = require("../models/User");
+const Game = require("../models/Game");
 
 // Register a user for their account
 

@@ -38,8 +38,22 @@ Navigate to /ECSE-428-Project/frontend/ecse-428-project
 ```bash
 npm start
 ```
+## To run unit tests
 
-## To run tests
+First make sure the backend is running
+
+Then from root of project
+
+```bash
+cd backend
+```
+
+```bash
+npm run test
+```
+
+
+## To run acceptance tests
 
 First make sure the backend is running
 

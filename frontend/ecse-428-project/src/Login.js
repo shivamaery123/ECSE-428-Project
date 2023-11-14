@@ -23,7 +23,7 @@ function Login() {
 
     return (
     <div className="Login">
-        <div className="Login-Title">Create an account</div>
+        <div className="Login-Title">Login to your account</div>
         <div className="Login-FormBackground">
             <form className="Login-Form" onSubmit={handleSubmit}>
                 <label htmlFor="username">Username</label>
