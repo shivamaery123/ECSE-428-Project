@@ -1,20 +1,23 @@
 /**
  * This file is used to setup the routes of the application
  */
+
 const express = require("express");
-const user_router = express.Router();
 
 // Create user router
-const {registerUser, 
-  get_all_users, 
-  get_user, 
-  addGameToHistory, 
-  removeGameFromHistory,
-  clearGameHistory,
-  retrieveGameHistory,
+
+const user_router = express.Router();
+const {
+  registerUser,
+  get_all_users,
+  get_user,
   deleteUser,
   modify_user,
-  login
+  login,
+  addGameToHistory,
+  removeGameFromHistory,
+  clearGameHistory,
+  retrieveGameHistory
 } = require("../controllers/user_controller");
 
 // Create a user route
@@ -41,16 +44,16 @@ user_router.put("/user",modify_user)
 
 user_router.post('/login', login)
 
-//add a game to game histroy route
+//add a game to game history route
 user_router.post("/game/add", addGameToHistory);     
 
-//remove a game from game histroy route
+//remove a game from game history route
 user_router.delete("/game/remove", removeGameFromHistory); 
 
-//clear game histroy route
+//clear game history route
 user_router.delete("/game/clear", clearGameHistory);      
 
-//retrieve game histroy route
+//retrieve game history route
 user_router.get("/game/history", retrieveGameHistory);   
 
 module.exports = user_router;
