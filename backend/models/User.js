@@ -6,6 +6,8 @@ const { Sequelize, DataTypes } = require("sequelize");
 const sequelize = require("../config/database.js");
 //const GameHistory = require("./Game.js");
 
+const ARRAY_STRING = DataTypes.JSON;
+
 // User model
 
 const User = sequelize.define("users", {
@@ -31,7 +33,7 @@ const User = sequelize.define("users", {
   },
 
   game_history: {
-    type: DataTypes.TEXT, // Changed to TEXT to store longer strings
+    type: ARRAY_STRING,
     allowNull: false,
     defaultValue: "[]",
     get() {
