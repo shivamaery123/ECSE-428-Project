@@ -26,13 +26,13 @@ Before(async function () {
 
   // Create a user for delete tests
 
-  this.userData = {
-    username: "shivam123",
-    email: "shivam.aery@mail.mcgill.ca",
-    password: "0000",
-  };
-
-  await axios.post("http://localhost:8000/users/register", this.userData);
+//  this.userData = {
+//    username: "shivam123",
+//    email: "shivam.aery@mail.mcgill.ca",
+//    password: "0000",
+//  };
+//
+//  await axios.post("http://localhost:8000/users/register", this.userData);
 });
 
 // Delete a user with email and username provided
