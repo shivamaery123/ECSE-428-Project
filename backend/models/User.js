@@ -44,6 +44,18 @@ const User = sequelize.define("users", {
       this.setDataValue("game_history", JSON.stringify(value));
     },
   },
+
+  game_genre_preference: {
+    type: ARRAY_STRING,
+    allowNull:false,
+    defaultValue:"[]",    get() {
+      const rawValue = this.getDataValue("game_genre_preference");
+      return rawValue ? JSON.parse(rawValue) : [];
+    },
+    set(value) {
+      this.setDataValue("game_genre_preference", JSON.stringify(value));
+    },
+  }
 });
 
 module.exports = User;

@@ -370,6 +370,22 @@ const retrieveGameHistory = async (req, res) => {
   }
 };
 
+const getGenrePreferences = async(req, res) => {
+
+}
+
+const addGenreToPreferences = async(req,res) => {
+
+}
+
+const removeGenreFromPreferences = async(req,res) => {
+
+}
+
+const clearGenrePreferences = async(req,res) => {
+  
+}
+
 module.exports = {
   registerUser,
   get_all_users,
