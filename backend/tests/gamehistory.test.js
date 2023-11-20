@@ -1,5 +1,6 @@
 const {registerUser,
     addGameToHistory, 
+    remove_all_users,
     removeGameFromHistory,
     clearGameHistory,
     retrieveGameHistory
@@ -12,12 +13,14 @@ const {createGame} = require('../controllers/game_controller');
 
 describe('Add Game to Game History', () => {
     test('add valid game to game history', async () => {
-          
+          const req_remove = httpMocks.createRequest();
+          const res_remove = httpMocks.createResponse();
+          await remove_all_users(req_remove, res_remove);
+
           const req = httpMocks.createRequest();
           req.body = { username: 'testuser', email: 'test@email.com', password: 'testpassword'};
           const res = httpMocks.createResponse();
           await registerUser(req, res); // create user
-
 
           const req_game = httpMocks.createRequest();
           req_game.body = { game_name: 'testgame', game_creator: 'testcreator', game_type: 'Action'};
@@ -43,7 +46,10 @@ describe('Add Game to Game History', () => {
       });
 
       test('add game that does not exist to game history', async () => {
-          
+        const req_remove = httpMocks.createRequest();
+        const res_remove = httpMocks.createResponse();
+        await remove_all_users(req_remove, res_remove);
+
         const req = httpMocks.createRequest();
         req.body = { username: 'testuser', email: 'test@email.com', password: 'testpassword'};
         const res = httpMocks.createResponse();
@@ -67,7 +73,10 @@ describe('Add Game to Game History', () => {
     });
 
     test('add game to user that does not exist to game history', async () => {
-          
+        const req_remove = httpMocks.createRequest();
+        const res_remove = httpMocks.createResponse();
+        await remove_all_users(req_remove, res_remove);
+
         const req_game = httpMocks.createRequest();
         req_game.body = { game_name: 'testgame', game_creator: 'testcreator', game_type: 'Action'};
         const res_game = httpMocks.createResponse();
@@ -94,7 +103,10 @@ describe('Add Game to Game History', () => {
 
 describe('Remove Game from Game History', () => {
     test('remove valid game from game history', async () => {
-          
+        const req_remove = httpMocks.createRequest();
+        const res_remove = httpMocks.createResponse();
+        await remove_all_users(req_remove, res_remove);
+
         const req = httpMocks.createRequest();
         req.body = { username: 'testuser', email: 'test@email.com', password: 'testpassword'};
         const res = httpMocks.createResponse();
@@ -136,6 +148,9 @@ describe('Remove Game from Game History', () => {
     });
 
     test('remove valid game from game history of inexistent user', async () => {
+        const req_remove = httpMocks.createRequest();
+        const res_remove = httpMocks.createResponse();
+        await remove_all_users(req_remove, res_remove);
 
         const req_history = {
             query: { username: 'invalid user', game_name: 'testgame'},
@@ -155,6 +170,10 @@ describe('Remove Game from Game History', () => {
     });
 
     test('remove inexistent game from game history of existent user', async () => {
+        const req_remove = httpMocks.createRequest();
+        const res_remove = httpMocks.createResponse();
+        await remove_all_users(req_remove, res_remove); 
+      
         const req = httpMocks.createRequest();
         req.body = { username: 'testuser2', email: 'test@email.com', password: 'testpassword'};
         const res = httpMocks.createResponse();
@@ -194,6 +213,10 @@ describe('Remove Game from Game History', () => {
     });
 
     test('remove game from empty game history', async () => {
+        const req_remove = httpMocks.createRequest();
+        const res_remove = httpMocks.createResponse();
+        await remove_all_users(req_remove, res_remove);
+        
         const req = httpMocks.createRequest();
         req.body = { username: 'testuser3', email: 'test@email.com', password: 'testpassword'};
         const res = httpMocks.createResponse();
@@ -219,7 +242,10 @@ describe('Remove Game from Game History', () => {
 
 describe('Clear Game History', () => {
     test('clear game history of existent user', async () => {
-          
+        const req_remove = httpMocks.createRequest();
+        const res_remove = httpMocks.createResponse();
+        await remove_all_users(req_remove, res_remove);
+
         const req = httpMocks.createRequest();
         req.body = { username: 'testuser', email: 'test@email.com', password: 'testpassword'};
         const res = httpMocks.createResponse();
@@ -260,6 +286,10 @@ describe('Clear Game History', () => {
 
     test('clear game history of inexistent user', async () => {
 
+        const req_remove = httpMocks.createRequest();
+        const res_remove = httpMocks.createResponse();
+        await remove_all_users(req_remove, res_remove);
+
         const req_history = {
             query: { username: 'invalid user'},
           };
@@ -279,6 +309,9 @@ describe('Clear Game History', () => {
 
 describe('Get Game History', () => {
     test('get game history of existent user', async () => {
+        const req_remove = httpMocks.createRequest();
+        const res_remove = httpMocks.createResponse();
+        await remove_all_users(req_remove, res_remove);
           
         const req = httpMocks.createRequest();
         req.body = { username: 'testuser', email: 'test@email.com', password: 'testpassword'};
@@ -319,6 +352,10 @@ describe('Get Game History', () => {
     });
 
     test('get game history of inexistent user', async () => {
+
+        const req_remove = httpMocks.createRequest();
+        const res_remove = httpMocks.createResponse();
+        await remove_all_users(req_remove, res_remove);
 
         const req_history = {
             query: { username: 'invalid user'},
