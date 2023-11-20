@@ -19,9 +19,13 @@ Given('I am logged in as a regular user with username "username1" and email "use
         username: "username1",
         email: "user@email.com",
         password: "0000",
-        game_history: "[]"
       };
-      await axios.post("http://localhost:8000/users/register", this.userData);
+
+      try {
+        await axios.post("http://localhost:8000/users/register", this.userData);
+      } catch (error) {
+        console.error('Error in Axios request:', error);
+      }
 });
 
 
@@ -30,9 +34,16 @@ Given('My game history contains "Elden Ring" and "Cyberpunk 2077"', async functi
         username: "username1",
         email: "user@email.com",
         password: "0000",
-        game_history: "[Elden Ring Cyberpunk 2077]"
+        game_history: {
+            game_name: ["Elden Ring", "Cyberpunk 2077"]
+        }
       };
-      await axios.post("http://localhost:8000/users/register", this.userData);
+
+    try {
+      this.response = await axios.post("http://localhost:8000/users/register", this.userData);
+    } catch (err) {
+      console.log("Post request to register user failed");
+    }
 });
 
 // Clear Game History using a valid email
