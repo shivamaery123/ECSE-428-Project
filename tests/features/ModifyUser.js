@@ -37,13 +37,14 @@ Given(
 /////////////////////////
 
 When (
-    "I make a PUT request with the user information to {string} with original email {string} and new email {string}, username {string} and password {string}",
-    async function (url, email, newEmail, newUsername, newPassword) {
+    "I make a PUT request with the user information to {string} with original email {string} and new email {string}, username {string} and password {string} and original password {string}",
+    async function (url, email, newEmail, newUsername, newPassword, password) {
         this.data = {
             email: email,
             newEmail: newEmail,
             newUsername: newUsername,
-            newPassword: newPassword
+            newPassword: newPassword,
+            password: password
         }
         try {
             const response = await axios.put(url, this.data);
