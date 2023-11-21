@@ -2,7 +2,7 @@
  * This file is used to setup the step definitions of CreateUser.feature
  */
 
-const { Given, When, Then, Before } = require("@cucumber/cucumber");
+const { Given, When, Then, Before, After } = require("@cucumber/cucumber");
 const axios = require("axios");
 const assert = require("assert");
 const User = require("../../backend/models/User");
@@ -17,14 +17,23 @@ Before(async function () {
   });
 });
 
+
+After(async function () {
+  await User.destroy({
+    truncate: true,
+    cascade: true,
+    restartIdentity: true,
+  });
+});
+
 // Register a user (Normal Flow)
 
 Given(
   "I have a valid username, password and email for a new user",
   function () {
     this.userData = {
-      username: "shivam123",
-      email: "shivam.aery@mail.mcgill.ca",
+      username: "shivam1234",
+      email: "shivam4.aery@mail.mcgill.ca",
       password: "0000",
     };
   }
@@ -79,8 +88,8 @@ Given(
   "I have a valid username and email but no password for a new user",
   function () {
     this.userData = {
-      username: "shivam123",
-      email: "shivam.aery@mail.mcgill.ca",
+      username: "shivam1235",
+      email: "shivam5.aery@mail.mcgill.ca",
     };
   }
 );
@@ -98,14 +107,14 @@ When(
   }
 );
 
-// Register a user wiith empty password (Alternate Flow)
+// Register a user wiith empty password (Error Flow)
 
 Given(
   "I have a valid username and email and a password equal to empty string for a new user",
   function () {
     this.userData = {
-      username: "shivam123",
-      email: "shivam.aery@mail.mcgill.ca",
+      username: "shivam1",
+      email: "shivam.aery1@mail.mcgill.ca",
       password: "",
     };
   }
