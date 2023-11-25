@@ -379,9 +379,15 @@ const clearGameHistory = async (req, res) => {
 
 const retrieveGameHistory = async (req, res) => {
   try {
-    const userId = req.query.user_id;
+    const { user_id, username} = req.query;
 
-    const user = await User.findOne({ where: { user_id: userId } });
+    var user;
+    if(user_id) {
+      user = await User.findOne({ where: { user_id: user_id } });
+    } else if(username) {
+      user = await User.findOne({ where: { username: username}});
+    } else throw new Error("Invalid query");
+    
 
     if (!user) {
       return res.status(404).json({
