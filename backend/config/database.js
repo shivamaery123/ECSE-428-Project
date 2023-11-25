@@ -9,8 +9,8 @@ const Sequelize = require("sequelize");
 const dbConfig = {
   host: "localhost",
   user: "root",
-  password: "MyNewPass",
-  database: "ecse",
+  password: "0000",
+  database: "ecse-428-project",
   dialect: "mysql",
 };
 

@@ -58,7 +58,7 @@ app.listen(port, () => {
 
 // Sync DB with models
 
-db.sync({})
+db.sync({force:true})
   .then(() => {
     console.log("Users table created successfully!");
   })
