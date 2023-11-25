@@ -6,7 +6,7 @@ const GameHistoryManager = () => {
     const [userId, setUserId] = useState(null);
     const [game_name, setGameName] = useState('');
     const [gameHistory, setGameHistory] = useState([]);
-    const [message, setMessage] = useState('');      
+    const [message, setMessage] = useState('');
     
     useEffect(() => {
         try {
@@ -72,7 +72,7 @@ const GameHistoryManager = () => {
         }
     };
 
-
+ 
     const handleRemoveGame = async () => {
         const game_resp = await getGame(game_name);
         const game = game_resp.data.data.game;
@@ -194,3 +194,4 @@ export default GameHistoryManager;
             });
     };
 */
+
