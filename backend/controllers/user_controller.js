@@ -237,11 +237,15 @@ const login = async (req, res) => {
 const addGameToHistory = async (req, res) => {
   try {
     //getting userID and game from the request
-    const userId = req.body.user_id;
-    const game = req.body.game; //NOTE: MIGHT NEED TO BE CHANGED BASED ON THE GAME MODEL
+    const {user_id, username} = req.body;
+    const game_name = req.body.game_name; 
 
-    //Fetching the respective user from the database
-    const user = await User.findOne({ where: { user_id: userId } });
+    let user;
+    if (user_id) {
+      user = await User.findByPk(user_id);
+    } else if (username) {
+      user = await User.findOne({ where: { username: username } });
+    } else throw new Error("Invalid query");
 
     if (!user) {
       return res.status(404).json({
@@ -249,7 +253,13 @@ const addGameToHistory = async (req, res) => {
         message: "User not found.",
       });
     }
-
+    const game = await Game.findOne({ where: { game_name: game_name } });
+    if (!game) {
+      return res.status(404).json({
+        status: "Failed",
+        message: "Game not found.",
+      });
+    }
     let gameHistory = user.game_history;
     gameHistory.push(game);
 
@@ -271,75 +281,99 @@ const addGameToHistory = async (req, res) => {
 
 const removeGameFromHistory = async (req, res) => {
   try {
-    const userId = req.body.user_id;
-    const game = req.body.game;
+      const { user_id, username} = req.query;
 
-    const user = await User.findOne({ where: { user_id: userId } });
+      //getting userID and game from the request
+      //const user_id= req.body.user_id;
+      const game_name = req.query.game_name; //NOTE: MIGHT NEED TO BE CHANGED BASED ON THE GAME MODEL
+  
+      //Fetching the respective user from the database
+      //const user= await User.findOne({ where: { user_id: user_id } });
+      let user;
+      if (user_id) {
+        user = await User.findByPk(user_id);
+      } else if (username) {
+        user = await User.findOne({ where: { username: username } });
+      } else throw new Error("Invalid query");
 
-    if (!user) {
-      return res.status(404).json({
-        status: "Failed",
-        message: "User not found.",
+      if (!user) {
+          return res.status(404).json({
+              status: "Failed",
+              message: "User not found."
+          });
+      }
+
+      let gameHistory = user.game_history;
+
+      if (gameHistory.length === 0) {
+          return res.status(404).json({
+              status: "Failed",
+              message: "No games are in your game history."
+          });
+      }
+
+      const gameIndex = gameHistory.findIndex(i => i.game_name === game_name);
+
+      if (gameIndex === -1) {
+          return res.status(404).json({
+              status: "Failed",
+              message: "Game not found in history."
+          });
+      }
+
+      gameHistory.splice(gameIndex, 1);
+      await user.update({ game_history: gameHistory });
+
+      res.status(200).json({
+          status: "Success",
+          message: "Game removed from history successfully."
       });
-    }
-
-    let gameHistory = user.game_history;
-
-    if (gameHistory.length === 0) {
-      return res.status(404).json({
-        status: "Failed",
-        message: "No games are in your game history.",
-      });
-    }
-
-    const gameIndex = gameHistory.indexOf(game);
-
-    if (gameIndex === -1) {
-      return res.status(404).json({
-        status: "Failed",
-        message: "Game not found in history.",
-      });
-    }
-
-    gameHistory.splice(gameIndex, 1);
-    await user.update({ game_history: gameHistory });
-
-    res.status(200).json({
-      status: "Success",
-      message: "Game removed from history successfully.",
-    });
   } catch (err) {
-    res.status(400).json({
-      status: "Failed",
-      message: `Error: ${err}`,
-    });
+      res.status(400).json({
+          status: "Failed",
+          message: `Error: ${err}`
+      });
   }
 };
 
 const clearGameHistory = async (req, res) => {
   try {
-    const userId = req.body.user_id;
+      const { user_id, username} = req.query;
 
-    const user = await User.findOne({ where: { user_id: userId } });
+      //Fetching the respective user from the database
+      //const user= await User.findOne({ where: { user_id: user_id } });
+      var user;
+      if (user_id) {
+        user = await User.findOne({ where: { user_id: user_id } });
+      } else if (username) {
+        user = await User.findOne({ where: { username: username } });
+      } else throw new Error("Invalid query");
 
-    if (!user) {
-      return res.status(404).json({
-        status: "Failed",
-        message: "User not found.",
+      if (user == null) {
+          return res.status(404).json({
+              status: "Failed",
+              message: "User not found."
+          });
+      }
+      let gameHistory = user.game_history;
+      if (gameHistory.length === 0) {
+        return res.status(200).json({
+            status: "Success",
+            message: "No games in your history to clear."
+        });
+      }
+
+       await user.update({ game_history: [] });
+
+      res.status(200).json({
+          status: "Success",
+          message: "Game history cleared successfully."
       });
-    }
-
-    await user.update({ game_history: [] });
-
-    res.status(200).json({
-      status: "Success",
-      message: "Game history cleared successfully.",
-    });
   } catch (err) {
-    res.status(400).json({
-      status: "Failed",
-      message: `Error: ${err}`,
-    });
+      res.status(400).json({
+          status: "Failed",
+          message: `Error: ${err}`
+      });
   }
 };
 
