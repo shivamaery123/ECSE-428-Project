@@ -13,56 +13,56 @@ Before(async function () {
   });
 });
 
-Given('I am logged in as a regular user with username "username1" and email "user@email.com"', async function () {
+//Given('I am logged in as a regular user with username "username1" and email "user@email.com"', async function () {
+//
+//    this.userData = {
+//        username: "username1",
+//        email: "user@email.com",
+//        password: "0000",
+//      };
+//
+//      try {
+//        await axios.post("http://localhost:8000/users/register", this.userData);
+//      } catch (error) {
+//        console.error('Error in Axios request:', error);
+//     }
+//});
 
-    this.userData = {
-        username: "username1",
-        email: "user@email.com",
-        password: "0000",
-      };
 
-      try {
-        await axios.post("http://localhost:8000/users/register", this.userData);
-      } catch (error) {
-        console.error('Error in Axios request:', error);
-      }
-});
-
-
-Given('My game history contains "Elden Ring" and "Cyberpunk 2077"', async function () {
-    this.userData = {
-        username: "username1",
-        email: "user@email.com",
-        password: "0000",
-        game_history: {
-            game_name: ["Elden Ring", "Cyberpunk 2077"]
-        }
-      };
-
-    try {
-      this.response = await axios.post("http://localhost:8000/users/register", this.userData);
-    } catch (err) {
-      console.log("Post request to register user failed");
-    }
-});
+//Given('My game history contains "Elden Ring" and "Cyberpunk 2077"', async function () {
+//    this.userData = {
+//        username: "username1",
+//        email: "user@email.com",
+//        password: "0000",
+//        game_history: {
+//            game_name: ["Elden Ring", "Cyberpunk 2077"]
+//        }
+//      };
+//
+//    try {
+//      this.response = await axios.post("http://localhost:8000/users/register", this.userData);
+//    } catch (err) {
+//      console.log("Post request to register user failed");
+//    }
+//});
 
 // Clear Game History using a valid email
 
-When('I make a DELETE request to {string} with email {string}', async function (url, email) {
+When('I make a DELETE request to {string} with username {string}', async function (url, username) {
   try {
-    const response = await axios.delete(`${url}?email=${email}`);
+    const response = await axios.delete(`${url}?username=${username}`);
     this.response = response;
   } catch (err) {
     this.response = err.response;
   }
 });
 
-Given('My game history does not contain any games', async function () {
-    this.userData = {
-        username: "username1",
-        email: "user@email.com",
-        password: "0000",
-        game_history: "[]"
-      };
-      await axios.post("http://localhost:8000/users/register", this.userData);
-});
+//Given('My game history does not contain any games', async function () {
+//    this.userData = {
+//        username: "username1",
+//        email: "user@email.com",
+//        password: "0000",
+//        game_history: "[]"
+//      };
+//      await axios.post("http://localhost:8000/users/register", this.userData);
+//});
