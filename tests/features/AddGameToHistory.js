@@ -11,7 +11,7 @@ Before(async function () {
   });
 });
 
-Given("a game exists in the database with game name {string}, game creator {string} and game type {string}",
+Given("a game currently exists in the database with game name {string}, game creator {string} and game type {string}",
 async function (game_name, game_creator, game_type) {
     this.gameData = {
         game_name: game_name,
@@ -41,14 +41,14 @@ async function (url, username, game_name) {
     }
 });
 
-Then('the response status code should be {int}', function (expected_status_code) {
+Then('the response status code for adding to history should be {int}', function (expected_status_code) {
     assert.strictEqual(this.response.status, expected_status_code);
 });
 
-Then("the response should contain a status message {string}", function (status_indicator) {
+Then("the response for adding to history should contain a status message {string}", function (status_indicator) {
     assert.strictEqual(this.response.data.status, status_indicator);
 });
 
-Then("the response should contain a message {string}", function (status_message) {
+Then("the response for adding to history should contain a message {string}", function (status_message) {
     assert.strictEqual(this.response.data.message, status_message);
 });
