@@ -3,8 +3,15 @@
 
 function App() {
   return (
-    <div className="App">
-      <p>HI</p>
+    <div className = "Main Page">
+
+      <div className="Links">
+        <a href="/login">Log In</a> <br/>
+        <a href="/signup">Sign Up</a> <br/>
+        <a href="/account">Account</a> <br/>
+        <a href="/history">Game History</a> <br/>
+      </div>
+      
     </div>
   );
 }

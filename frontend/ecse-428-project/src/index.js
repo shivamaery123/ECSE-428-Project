@@ -4,6 +4,7 @@ import './index.css';
 import SignUp from './SignUp.js';
 import Login from './Login.js';
 import App from './App.js';
+import Account from './Account.js';
 import GameHistoryManager from './GameHistoryManager.js';
 //import reportWebVitals from './reportWebVitals';
 //mport { BrowserRouter } from 'react-router-dom';
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />
+  },
+  {
+    path: "/account",
+    element: <Account />
   },
   {
     path: "/history",
