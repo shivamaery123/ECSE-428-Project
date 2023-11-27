@@ -22,22 +22,29 @@ After(async function () {
 // Normal Flow and Alternate Flow
 
 Given(
-  "a game does not exist in the database",
-  async function () {
+  "a game with game name {string}, game creator {string}, game type {string} does not exist in the database",
+  async function (game_name, game_creator, game_type) {
     // already emptied in the before
-  }
-);
-
-When(
-    "I make a POST request to create the game with game name {string}, game creator {string}, game type {string} at {string}",
-    function (game_name, game_creator, game_type, url) {
-      this.gameData = {
+    this.gameData = {
         game_name: game_name,
         game_creator: game_creator,
         game_type: game_type,
       };
+  }
+);
+
+When(
+    "I make a POST request to create the game at {string}",
+    async function (url) {
+      
       try {
-        this.response =  axios.post(url, this.gameData);
+        
+        this.response = await axios.post(url, this.gameData, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+        
       } catch (err) {
         console.log("Post request to create game failed: ", err);
       }
@@ -53,14 +60,14 @@ Then(
 );
 
 Then(
-  "the response for creating the game should contain a status message {string}",
+  "the response message should have status {string}",
   function (statusMessage) {
     assert.strictEqual(this.response.data.status, statusMessage);
   }
 );
 
 Then(
-  "the response message for creating the game should contain {string}",
+  "the response message should contain a status message containing {string}",
   function (responseMessage) {
     assert(this.response.data.message.includes(responseMessage));
   }
