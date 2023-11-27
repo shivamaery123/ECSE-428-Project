@@ -47,6 +47,8 @@ When(
         
       } catch (err) {
         console.log("Post request to create game failed: ", err);
+        // Ensure this.response is defined to avoid 'undefined' errors
+        this.response = err.response || {};
       }
     }
   );
@@ -54,7 +56,6 @@ When(
 Then(
   "the response status code for creating the game should be {int}",
   function (statusCode) {
-      console.log(this.response.status);
     assert.equal(this.response.status, statusCode);
   }
 );

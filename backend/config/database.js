@@ -9,8 +9,8 @@
  const dbConfig = {
    host: "localhost",
    user: "root",
-   password: "00000000",
-   database: "ecse_428_project",
+   password: "0000",
+   database: "ecse-428-project",
    dialect: "mysql",
  };
  
