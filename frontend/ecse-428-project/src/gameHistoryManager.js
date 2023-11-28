@@ -7,6 +7,7 @@ const GameHistoryManager = () => {
     const [game_name, setGameName] = useState('');
     const [gameHistory, setGameHistory] = useState([]);
     const [message, setMessage] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');   
     
     useEffect(() => {
         try {
@@ -114,6 +115,16 @@ const GameHistoryManager = () => {
     };
     
 
+    // Function to handle search input change
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    // Function to filter game history based on search term
+    const filteredGameHistory = gameHistory.filter(game =>
+        game.game_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    
     
 return (
     
@@ -149,7 +160,18 @@ return (
             <ul>
                 {gameHistory.map((game) => (<li key={game.game_id}>{game.game_name}</li>))}
             </ul>
+            <input className="search-bar"
+                    type="text"
+                    placeholder="Search Game"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                />
+                {filteredGameHistory.map(game => (
+                    <div key={game.game_id}>{game.game_name}</div>
+                ))}
         </div>
+
+        
     </div>
 );
 
