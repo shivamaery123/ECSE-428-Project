@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { getUserIdByUsername, getGameHistory, addGameToHistory, removeGameFromHistory, clearGameHistory, getGame } from './api.js';
 import './GameHistoryManager.css';
+import Navigation from './Navigation.js';
 
 const GameHistoryManager = () => {
     const [userId, setUserId] = useState(null);
@@ -118,6 +119,9 @@ const GameHistoryManager = () => {
 return (
     
     <div className="GameHistoryManager">
+
+        <Navigation />
+    
         <div className="GameHistoryManager-InputSection">
             <label>Game:</label>
             <input 
