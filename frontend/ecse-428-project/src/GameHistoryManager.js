@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { getUserIdByUsername, getGameHistory, addGameToHistory, removeGameFromHistory, clearGameHistory, getGame } from './api.js';
 import './GameHistoryManager.css';
-import Navigation from './Navigation.js';
 
 const GameHistoryManager = () => {
     const [userId, setUserId] = useState(null);
     const [game_name, setGameName] = useState('');
     const [gameHistory, setGameHistory] = useState([]);
     const [message, setMessage] = useState('');
+    const [searchTerm, setSearchTerm] = useState('');   
     
     useEffect(() => {
         try {
@@ -115,13 +115,20 @@ const GameHistoryManager = () => {
     };
     
 
+    // Function to handle search input change
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    // Function to filter game history based on search term
+    const filteredGameHistory = gameHistory.filter(game =>
+        game.game_name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    
     
 return (
     
     <div className="GameHistoryManager">
-
-        <Navigation />
-    
         <div className="GameHistoryManager-InputSection">
             <label>Game:</label>
             <input 
@@ -153,7 +160,18 @@ return (
             <ul>
                 {gameHistory.map((game) => (<li key={game.game_id}>{game.game_name}</li>))}
             </ul>
+            <input className="search-bar"
+                    type="text"
+                    placeholder="Search Game"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                />
+                {filteredGameHistory.map(game => (
+                    <div key={game.game_id}>{game.game_name}</div>
+                ))}
         </div>
+
+        
     </div>
 );
 
