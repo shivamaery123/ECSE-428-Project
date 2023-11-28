@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './SignUp.css';
 import { Link } from "react-router-dom";
 import { signUpUser } from './api.js';
+import Navigation from './Navigation.js';
 
 function SignUp() {
   
@@ -25,6 +26,7 @@ function SignUp() {
 
   return (
     <div className="SignUp">
+        <Navigation />
         <div className="SignUp-Title">Create an account</div>
         <div className="SignUp-FormBackground">
             <form className="SignUp-Form" onSubmit={handleSubmit}>

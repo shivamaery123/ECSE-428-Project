@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { getUserIdByUsername } from './api.js';
 import './Account.css';
+import Navigation from './Navigation.js';
 
 function ViewAccount() {
     const [username, setUsername] = useState('');
@@ -23,6 +24,7 @@ function ViewAccount() {
 
     return (
         <div className="ViewAccount">
+            <Navigation />
             <div className="ViewAccount-Title">View Your Account</div>
             <div className="ViewAccount-Fields">
                 <form onSubmit={handleSubmit}>

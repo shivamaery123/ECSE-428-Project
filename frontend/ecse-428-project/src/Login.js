@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import { loginUser } from './api.js';
 import './Login.css';
+import Navigation from './Navigation.js';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -23,6 +24,7 @@ function Login() {
 
     return (
     <div className="Login">
+        <Navigation />
         <div className="Login-Title">Login to your account</div>
         <div className="Login-FormBackground">
             <form className="Login-Form" onSubmit={handleSubmit}>
