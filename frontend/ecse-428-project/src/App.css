@@ -1,0 +1,43 @@
+/* Reset some default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  .MainPage {
+    text-align: center;
+  }
+  
+  .App-header {
+    background-color: #282c34;
+    padding: 20px;
+    color: white;
+  }
+  
+  .Links {
+    margin: 20px;
+  }
+  
+  .Links a {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #007bff; /* Blue color */
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px; /* Rounded corners */
+  }
+  
+  .Links a:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  /* Add more styles as needed */
+  
