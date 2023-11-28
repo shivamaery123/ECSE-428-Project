@@ -44,6 +44,33 @@ const User = sequelize.define("users", {
       this.setDataValue("game_history", JSON.stringify(value));
     },
   },
+
+  game_preferences: {
+    type: DataTypes.JSON,
+    defaultValue: [],
+
+    get() {
+      const rawValue = this.getDataValue('game_preferences');
+      return Array.isArray(rawValue) ? rawValue : [];
+    },
+
+    set(value) {
+      if (Array.isArray(value)) {
+        this.setDataValue('game_preferences', value);
+      } else if (value === null || value === undefined) {
+        this.setDataValue('game_preferences', []);
+      } else {
+        throw new Error('Invalid value. Expected an array.');
+      }
+    },
+  },
+});
+
+// Sync the model with the database
+sequelize.sync().then(() => {
+  console.log('Table created successfully.');
+}).catch(error => {
+  console.error('Error creating table:', error);
 });
 
 module.exports = User;

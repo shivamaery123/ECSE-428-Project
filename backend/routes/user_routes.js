@@ -17,7 +17,10 @@ const {
   addGameToHistory,
   removeGameFromHistory,
   clearGameHistory,
-  retrieveGameHistory
+  retrieveGameHistory,
+  addGamePreference,
+  retrieveGamePreferences,
+  removeGamePreference,
 } = require("../controllers/user_controller");
 
 // Create a user route
@@ -54,6 +57,15 @@ user_router.delete("/game/remove", removeGameFromHistory);
 user_router.delete("/game/clear", clearGameHistory);      
 
 //retrieve game history route
-user_router.get("/game/history", retrieveGameHistory);   
+user_router.get("/game/history", retrieveGameHistory);
+
+//add game genre route
+user_router.post("/genre/add", addGamePreference);
+
+//retrieve game genre route
+user_router.get("genre/get", retrieveGamePreferences);
+
+//remove game genre route
+user_router.delete("genre/remove", removeGamePreference);
 
 module.exports = user_router;

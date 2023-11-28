@@ -8,6 +8,7 @@ import GameHistoryManager from './GameHistoryManager.js';
 //import reportWebVitals from './reportWebVitals';
 //mport { BrowserRouter } from 'react-router-dom';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import GameGenrePreferences from './GameGenrePreferences.js';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/history",
     element: <GameHistoryManager />
+  },
+  {
+    path: "/preferences",
+    element: <GameGenrePreferences />
   }
 ]);
 

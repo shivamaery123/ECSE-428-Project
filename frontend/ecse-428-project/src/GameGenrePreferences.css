@@ -1,0 +1,58 @@
+.GameGenrePreferences {
+    text-align: center;
+    background-color: #F7F7F7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+
+  .GameGenrePreferences-InputSection{
+    margin-top: 150px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .GameGenrePreferences-Message{
+    color: red;
+    margin-top: 20px;
+  }
+
+  .GameGenrePreferences-Listing{
+    width: 60%;
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+  }
+
+  .GameGenrePreferences-InputSection button {
+    height: 35px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    padding: 0 15px;
+  }
+  
+  .GameGenrePreferences-InputSection button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .GameGenrePreferences-InputSection button:not(:disabled) {
+    background-color: #536EFF;
+  }
+  
+  .GameGenrePreferences-InputSection button:not(:disabled):hover {
+    background-color: #2646ff;
+  }
+
+  .GameHistoryManager-History ul {
+    list-style-type: none;
+    padding: 0;
+  }

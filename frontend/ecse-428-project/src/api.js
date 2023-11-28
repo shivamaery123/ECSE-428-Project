@@ -80,3 +80,31 @@ export const getGame = async (game_name) => {
         return { success: false, error: error.response.data || error.message };
     }
 };
+
+export const addGamePreference = async (userId, game_preference) => {
+    try {
+        const response = await axios.post('http://localhost:8000/users/genre/add', { user_id: userId, game_preference: game_preference });
+        return { success: true, data: response.data };
+    } catch (error) {
+        return { success: false, error: error.response.data || error.message };
+    }
+};
+
+export const removeGamePreference = async (userId, game_preference) => {
+    try {
+
+        const response = await axios.delete(`http://localhost:8000/users/genre/remove?user_id=${userId}&game_preference=${game_preference}`);
+        return { success: true, data: response.data };
+    } catch (error) {
+        return { success: false, error: error.response.data || error.message };
+    }
+};
+
+export const retrieveGamePreferences = async (userId) => {
+    try {
+        const response = await axios.get(`http://localhost:8000/users/genre/get?user_id=${userId}`);
+        return { success: true, data: response.data };
+    } catch (error) {
+        return { success: false, error: error.response.data || error.message };
+    }
+};

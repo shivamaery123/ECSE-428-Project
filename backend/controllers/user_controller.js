@@ -410,6 +410,141 @@ const retrieveGameHistory = async (req, res) => {
   }
 };
 
+const addGamePreference = async (req, res) => {
+  try {
+    //getting userID and game from the request
+    const {user_id, username} = req.body;
+    const game_preference = req.body.game_preference; 
+
+    let user;
+    if (user_id) {
+      user = await User.findByPk(user_id);
+    } else if (username) {
+      user = await User.findOne({ where: { username: username } });
+    } else throw new Error("Invalid query");
+
+    if (!user) {
+      return res.status(404).json({
+        status: "Failed",
+        message: "User not found.",
+      });
+    }
+    const gamePreferencesJson = await User.game_preferences.get();
+    if (gamePreferencesJson.includes(game_preference)) {
+      return res.status(404).json({
+        status: "Failed",
+        message: "Game genre already included.",
+      });
+    }
+  
+    gamePreferencesJson.push(game_preference);
+
+    await user.update({ game_preferences: gamePreferencesJson });
+
+    res.status(200).json({
+      status: "Success",
+      message: "Game genre added successfully.",
+    });
+  } catch (err) {
+    // Catch any errors that occur during execution
+    // Respond with a 400 status and a failure message, including the error details
+    res.status(400).json({
+      status: "Failed",
+      message: `Error: ${err}`,
+    });
+  }
+};
+
+const removeGamePreference = async (req, res) => {
+  try {
+      const { user_id, username} = req.query;
+
+      //getting userID and game from the request
+      //const user_id= req.body.user_id;
+      const game_preference = req.query.game_preference; 
+      //Fetching the respective user from the database
+      //const user= await User.findOne({ where: { user_id: user_id } });
+      let user;
+      if (user_id) {
+        user = await User.findByPk(user_id);
+      } else if (username) {
+        user = await User.findOne({ where: { username: username } });
+      } else throw new Error("Invalid query");
+
+      if (!user) {
+          return res.status(404).json({
+              status: "Failed",
+              message: "User not found."
+          });
+      }
+
+      let gamePreferences = user.game_preferences.get();
+
+      if (gamePreferences.length === 0) {
+          return res.status(404).json({
+              status: "Failed",
+              message: "No games genres are in your saved preferences."
+          });
+      }
+
+      if (!gamePreferences.includes(game_preference)) {
+          return res.status(404).json({
+              status: "Failed",
+              message: "Game genre not found."
+          });
+      }
+
+      
+
+      gamePreferences.splice(gamePreferences.findIndex(game_preference), 1);
+
+      await user.update({ game_preferences: gamePreferences});
+
+      res.status(200).json({
+          status: "Success",
+          message: "Game genre removed successfully."
+      });
+  } catch (err) {
+      res.status(400).json({
+          status: "Failed",
+          message: `Error: ${err}`
+      });
+  }
+};
+
+const retrieveGamePreferences = async (req, res) => {
+  try {
+    const { user_id, username} = req.query;
+
+    var user;
+    if(user_id) {
+      user = await User.findOne({ where: { user_id: user_id } });
+    } else if(username) {
+      user = await User.findOne({ where: { username: username}});
+    } else throw new Error("Invalid query");
+    
+
+    if (!user) {
+      return res.status(404).json({
+        status: "Failed",
+        message: "User not found.",
+      });
+    }
+
+    const gamePreferences = user.game_preferences.get();
+
+    res.status(200).json({
+      status: "Success",
+      data: gamePreferences,
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failed",
+      message: `Error: ${err}`,
+    });
+  }
+};
+
 module.exports = {
   registerUser,
   get_all_users,
@@ -421,4 +556,7 @@ module.exports = {
   removeGameFromHistory,
   clearGameHistory,
   retrieveGameHistory,
+  addGamePreference,
+  removeGamePreference,
+  retrieveGamePreferences,
 };
