@@ -1,17 +1,20 @@
-//import logo from './logo.svg';
-//import Login from './Login';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './App.css';
 
 function App() {
   return (
-    <div className = "Main Page">
+    <div className="MainPage">
+      <header className="App-header">
+        <h1>Game History Application</h1>
+      </header>
 
       <div className="Links">
-        <a href="/login">Log In</a> <br/>
-        <a href="/signup">Sign Up</a> <br/>
-        <a href="/account">Account</a> <br/>
-        <a href="/history">Game History</a> <br/>
+        <Link to="/login">Log In</Link> <br />
+        <Link to="/signup">Sign Up</Link> <br />
+        <Link to="/account">Account</Link> <br />
+        <Link to="/history">Game History</Link> <br />
       </div>
-      
     </div>
   );
 }
